@@ -290,7 +290,7 @@
 
 			FBZ.view.$leftContainer;
 
-			FBZ.model.currentAddress = FBZ.model.noBrain.contacto.elements[0].direccion;
+			FBZ.model.currentAddress = FBZ.model.noBrain.contacto.elements[0].Direccion;
 			// console.log(FBZ.model.currentAddress);
 			FBZ.view.$address.append(FBZ.model.currentAddress);
 
@@ -349,31 +349,21 @@ console.log(FBZ.model.noBrain.cartelera.elements[i]);
 			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
     		for ( var i = 0 ; i < FBZ.model.noBrain.eventos.elements.length ; i ++ ) { 
 //				
-					console.log(FBZ.model.noBrain.eventos.elements[i]);
+					// console.log(FBZ.model.noBrain.eventos.elements[i]);
 				
     // 				// key: the name of the object key
 				// // console.log(key,index);
-				// if(FBZ.model.noBrain.eventos.elements[i].Privacidad != "PRIVADO") {  
+				if(FBZ.model.noBrain.eventos.elements[i].Privacidad != "PRIVADO") {  
 				
-				// FBZ.model.centralContainer += 
-
-				// 	"<div class='eventos-block'>"+
-				//  		"<picture class='eventos-imagen'>"+
-				// 			"<source srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_S+"' media='(max-width: 320px)'/>"+
-				// 			"<source srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_M+"' media='(max-width: 650px)'/>"+
-				// 			"<source srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_L+"' media='(max-width: 900px)'/>"+
-				// 			"<img srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_M+"' alt='"+FBZ.model.noBrain.eventos.elements[i].Titulo+"-imagen'/>"+
-				// 		"</picture>"+
-				// 		"<h2 class='eventos-titulo'>"+FBZ.model.noBrain.eventos.elements[i].Titulo+"</h2>"+
-				// 		"<h3 class='eventos-director'>"+FBZ.model.noBrain.eventos.elements[i].Director+"</h3>"+
-				// 		"<p class='eventos-ano'>"+FBZ.model.noBrain.eventos.elements[i].Ano+"</p>"+
-				// 		"<p class='eventos-pais'>"+FBZ.model.noBrain.eventos.elements[i].Pais+"</p>"+
-				// 		"<p class='eventos-duracion'>"+FBZ.model.noBrain.eventos.elements[i].Duracion+"</p>"+
-				// 		"<p class='eventos-fecha'>"+FBZ.model.noBrain.eventos.elements[i].Fecha+"</p>"+
-				// 		"<p class='eventos-hora'>"+FBZ.model.noBrain.eventos.elements[i].Hora+"</p>"+
-				// 		"<p class='eventos-sinopsis'>"+FBZ.model.noBrain.eventos.elements[i].Sinopsis+"</p>"+
-				// 		"<p class='eventos-invitado'>"+FBZ.model.noBrain.eventos.elements[i].Invitado+"</p>"+
-				// 	"</div><!--end cartelera block-->";
+				FBZ.model.rightContainer += 																			
+					"<div class='eventos-block' articulo-URL='"+FBZ.model.noBrain.eventos.elements[i].URL_articulo+"'>"+
+				 		"<picture class='eventos-imagen'>"+
+							"<img srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_avatar+"' alt='"+FBZ.model.noBrain.eventos.elements[i].nombre+"-imagen'/>"+
+						"</picture>"+
+						"<h2 class='eventos-nombre'>"+FBZ.model.noBrain.eventos.elements[i].Nombre+"</h2>"+
+						"<h3 class='eventos-fecha'>"+FBZ.model.noBrain.eventos.elements[i].Fecha+"</h3>"+
+						"<p class='eventos-hora'>"+FBZ.model.noBrain.eventos.elements[i].Ano+"</p>"+
+						"<p class='descripcion-corta'>"+FBZ.model.noBrain.eventos.elements[i].Descripcion_corta+"</p>";
 				}
 
 			}
