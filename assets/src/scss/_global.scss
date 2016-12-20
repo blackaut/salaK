@@ -15,6 +15,62 @@
 // $bp-wide              : 992;  // Set in px
 // $bp-huge              : 1600; // Set in px
  
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    // text-align: center;
+    // width: 100%;
+}
+
+/* Dropdown Content (Hidden by Default) */
+
+.dropdown-container {
+	width:100%;
+	text-align:center;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show { display:block; }
+
+
+
+
 /// footer
  
 // footer {
@@ -46,26 +102,41 @@ body, html {
 
 	height: 100%;
 	width:60vw;
-	background:#999;
+	// background:#999;
 	margin-left:20vw;
+	padding: 10px;
+
 }
 
 .left-container {
 	height: 100%;
 	width:20vw;
-	background:#666;
+	// background:#666;
 	position:fixed;
-	
+	padding: 10px;
+
 }
 
 .right-container {
 	height: 100vh;
 	width:20vw;
-	background:#333;
+	// background:#333;
 	// position:fixed;
+	padding: 10px;
 }
 
-
+.bg-picture {
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	z-index:-1;
+	background-position:center;
+	background-size:cover;
+	background-repeat: no-repeat;
+    background-attachment: fixed;
+}
 
 /// header 
 

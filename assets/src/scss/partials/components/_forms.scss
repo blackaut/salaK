@@ -269,12 +269,11 @@ input[type="reset"],
 input[type="submit"] {
 	width: auto;
 	cursor: pointer;
-	background-color:$color-primary;
+	border: 2px white;
 	-webkit-appearance: button;
 	color:$color-primary;
 	border-radius:0;
 	font-family: 'Roboto';
-	transform: skewX(-15deg) translateX(-7px);
 	text-transform:uppercase;
 }
 

@@ -39,6 +39,7 @@
 		i18n : null,
 		noBrain : {},
 		currentLang:"es",
+		months : ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"],
 		$selectedform : {},
 		// js detection
 		mobileMode:false,
@@ -47,7 +48,8 @@
 		// value holders
 		swapToMobileBreakpoint:420,
 		swapToTabletBreakpoint:1024,
-		date : new Date()
+		date : new Date(),
+		dropdown : ""
 
 	};
 
@@ -64,7 +66,9 @@
 		$siteMenu			:$('.site-menu'),
 		$address			:$('address'),
 		$centralContainer 	:$('.central-container'),
-		$rightContainer 	:$('.right-container')
+		$rightContainer		:$('.right-container'),
+		dropdownCartelera	: document.getElementById("dropdown-cartelera"),
+		$bgPicture			:$('.bg-picture')
 	},
 
 
@@ -72,10 +76,106 @@
 		// add function here
 		init : function () {
 			console.debug('FabzOff is running');
+			FBZ.control.getTime();
+
 			FBZ.control.populateLeftContainer();
 			FBZ.control.populateCentralContainer();
 			FBZ.control.populateRightContainer();
-			FBZ.control.getTime();
+			FBZ.control.populateBackground();
+
+		},
+
+
+
+		displayMovies : function () {
+
+			console.log("displayMovies");
+		},
+
+		createCarteleraDropdown: function () {
+
+			FBZ.model.centralContainer = ""; 
+
+			FBZ.model.dropdown = 
+			"<div class='dropdown-container'>"+
+				"<div class='dropdown'>"+
+								"<button onclick='FBZ.control.activateCarteleraDropdown()' class='dropbtn'>"+FBZ.control.getMonthString(FBZ.model.date.getMonth())+"</button>"+
+								"<div id='dropdown-cartelera' class='dropdown-content'>"+
+									"<a href='"+FBZ.control.displayMovies(FBZ.model.date.getMonth()+1)+"'>"+FBZ.control.getMonthString(FBZ.model.date.getMonth()+1)+"</a>"+
+									"<a href='"+FBZ.control.displayMovies(FBZ.model.date.getMonth()+2)+"'>"+FBZ.control.getMonthString(FBZ.model.date.getMonth()+2)+"</a>"+
+									"<a href='"+FBZ.control.displayMovies(FBZ.model.date.getMonth()+3)+"'>"+FBZ.control.getMonthString(FBZ.model.date.getMonth()+3)+"</a>"+
+								"</div>"+
+							"</div>"+
+						"</div>";
+
+			FBZ.view.$centralContainer.append(FBZ.model.dropdown);
+
+
+
+			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
+    		for ( var i = 0 ; i < FBZ.model.noBrain.cartelera.elements.length ; i ++ ) { 
+//				
+				console.log(FBZ.model.noBrain.cartelera.elements[i]);
+				
+    				// key: the name of the object key
+				// console.log(key,index);
+				if(FBZ.model.noBrain.cartelera.elements[i].Privacidad != "PRIVADO") {  
+				
+				FBZ.model.centralContainer += 
+
+					"<div class='cartelera-block'>"+
+				 		"<picture class='cartelera-imagen'>"+
+							"<source srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_S+"' media='(max-width: 320px)'/>"+
+							"<source srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_M+"' media='(max-width: 650px)'/>"+
+							"<source srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_L+"' media='(max-width: 900px)'/>"+
+							"<img srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_M+"' alt='"+FBZ.model.noBrain.cartelera.elements[i].Titulo+"-imagen'/>"+
+						"</picture>"+
+						"<h2 class='cartelera-titulo'>"+FBZ.model.noBrain.cartelera.elements[i].Titulo+"</h2>"+
+						"<h3 class='cartelera-director'>"+FBZ.model.noBrain.cartelera.elements[i].Director+"</h3>"+
+						"<p class='cartelera-ano'>"+FBZ.model.noBrain.cartelera.elements[i].Ano+"</p>"+
+						"<p class='cartelera-pais'>"+FBZ.model.noBrain.cartelera.elements[i].Pais+"</p>"+
+						"<p class='cartelera-duracion'>"+FBZ.model.noBrain.cartelera.elements[i].Duracion+"</p>"+
+						"<p class='cartelera-fecha'>"+FBZ.model.noBrain.cartelera.elements[i].Fecha+"</p>"+
+						"<p class='cartelera-hora'>"+FBZ.model.noBrain.cartelera.elements[i].Hora+"</p>"+
+						"<p class='cartelera-sinopsis'>"+FBZ.model.noBrain.cartelera.elements[i].Sinopsis+"</p>"+
+						"<p class='cartelera-invitado'>"+FBZ.model.noBrain.cartelera.elements[i].Invitado+"</p>"+
+					"</div><!--end cartelera block-->";
+				}
+
+			}
+
+			FBZ.view.$centralContainer.append(FBZ.model.centralContainer);
+
+		},
+
+		getMonthString : function(index) {
+			if(index > 11 ) {
+				index -=12;
+			}
+			console.log(index, FBZ.model.months[index]);
+			return FBZ.model.months[index];
+		},
+
+		activateCarteleraDropdown : function  () {
+
+			FBZ.view.dropdownCartelera	= document.getElementById("dropdown-cartelera");
+
+			FBZ.view.dropdownCartelera.classList.toggle("show");
+
+			// Close the dropdown menu if the user clicks outside of it
+			window.onclick = function(event) {
+			  if (!event.target.matches('.dropbtn')) {
+
+			    var dropdowns = document.getElementsByClassName("dropdown-content");
+			    var i;
+			    for (i = 0; i < dropdowns.length; i++) {
+			      var openDropdown = dropdowns[i];
+			      if (openDropdown.classList.contains('show')) {
+			        openDropdown.classList.remove('show');
+			      }
+			    }
+			  }
+			}
 		},
 
 		getTime : function () {
@@ -90,7 +190,6 @@
 				// getSeconds()	Get the seconds (0-59)
 				// getTime()	Get the time (milliseconds since January 1, 1970)
 				console.log(FBZ.model.date.getDate());
-
 		},
 
 
@@ -281,9 +380,23 @@
 		},
 
 ///  SALA K Programming
+		populateBackground :  function () { 
 
+			FBZ.model.background;
+			var month = FBZ.model.date.getMonth();
 
+			if (FBZ.model.mobileMode) {
+				FBZ.model.background = FBZ.model.noBrain.fondo.elements[month].Imagen_S;
+			} else if (FBZ.model.tabletMode) {
+				FBZ.model.background = FBZ.model.noBrain.fondo.elements[month].Imagen_M;
+			} else {
+				FBZ.model.background = FBZ.model.noBrain.fondo.elements[month].Imagen_L;
+			}
 
+			console.log("holiiii");
+			FBZ.view.$bgPicture.css("background-image", "url("+FBZ.model.background+")");  
+
+		}, 
 
 
 		populateLeftContainer :  function () { 
@@ -303,41 +416,11 @@
 
 		populateCentralContainer :  function () { 
 
-			FBZ.model.centralContainer = ""; 
+			FBZ.control.createCarteleraDropdown();
+		
+			// FBZ.control.activateCarteleraDropdown();
 
-			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
-    		for ( var i = 0 ; i < FBZ.model.noBrain.cartelera.elements.length ; i ++ ) { 
-//				
-console.log(FBZ.model.noBrain.cartelera.elements[i]);
-				
-    				// key: the name of the object key
-				// console.log(key,index);
-				if(FBZ.model.noBrain.cartelera.elements[i].Privacidad != "PRIVADO") {  
-				
-				FBZ.model.centralContainer += 
 
-					"<div class='cartelera-block'>"+
-				 		"<picture class='cartelera-imagen'>"+
-							"<source srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_S+"' media='(max-width: 320px)'/>"+
-							"<source srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_M+"' media='(max-width: 650px)'/>"+
-							"<source srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_L+"' media='(max-width: 900px)'/>"+
-							"<img srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_M+"' alt='"+FBZ.model.noBrain.cartelera.elements[i].Titulo+"-imagen'/>"+
-						"</picture>"+
-						"<h2 class='cartelera-titulo'>"+FBZ.model.noBrain.cartelera.elements[i].Titulo+"</h2>"+
-						"<h3 class='cartelera-director'>"+FBZ.model.noBrain.cartelera.elements[i].Director+"</h3>"+
-						"<p class='cartelera-ano'>"+FBZ.model.noBrain.cartelera.elements[i].Ano+"</p>"+
-						"<p class='cartelera-pais'>"+FBZ.model.noBrain.cartelera.elements[i].Pais+"</p>"+
-						"<p class='cartelera-duracion'>"+FBZ.model.noBrain.cartelera.elements[i].Duracion+"</p>"+
-						"<p class='cartelera-fecha'>"+FBZ.model.noBrain.cartelera.elements[i].Fecha+"</p>"+
-						"<p class='cartelera-hora'>"+FBZ.model.noBrain.cartelera.elements[i].Hora+"</p>"+
-						"<p class='cartelera-sinopsis'>"+FBZ.model.noBrain.cartelera.elements[i].Sinopsis+"</p>"+
-						"<p class='cartelera-invitado'>"+FBZ.model.noBrain.cartelera.elements[i].Invitado+"</p>"+
-					"</div><!--end cartelera block-->";
-				}
-
-			}
-
-			FBZ.view.$centralContainer.append(FBZ.model.centralContainer);
 		},
 
 		populateRightContainer :  function () { 
