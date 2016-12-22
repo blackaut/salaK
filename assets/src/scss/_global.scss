@@ -139,6 +139,8 @@ body, html {
 	// background:#666;
 	position:fixed;
 	padding: 10px;
+	display: flex;
+    flex-direction: column;
 
 }
 
@@ -174,6 +176,10 @@ body, html {
 .menu-btn {
 	display:block;
 	cursor: pointer;
+}
+
+.site-menu {
+	flex-grow:2;
 }
 
 address {
