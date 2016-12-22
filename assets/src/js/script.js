@@ -406,6 +406,8 @@
 			FBZ.model.currentAddress = FBZ.model.noBrain.contacto.elements[0].Direccion;
 			// console.log(FBZ.model.currentAddress);
 			FBZ.view.$address.append(FBZ.model.currentAddress);
+			FBZ.view.$direccion.append(FBZ.model.currentAddress);
+			FBZ.view.$address.append(FBZ.model.currentAddress);
 
 				// console.log("left left-container")
 				// console.log(FBZ.model.noBrain);

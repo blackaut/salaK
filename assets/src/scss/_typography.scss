@@ -21,49 +21,20 @@
 /// fonts  
 
 
-@font-face {
-  font-family: Roboto;
-  src: url("../../fonts/Roboto-Bold.woff2?v=1.1.0") format("woff2"), url("../../fonts/Roboto-Bold.woff?v=1.1.0") format("woff"), url("./fonts/Bold/Roboto-Bold.ttf?v=1.1.0") format("truetype");
-  font-weight: bold;
-  font-style: normal;
-
-  }
-
-
-
-
 
 @font-face {
-    font-family: 'aldrichregular';
-    src: url('../../fonts/aldrich-regular-webfont.eot');
-    src: url('../../fonts/aldrich-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../../fonts/aldrich-regular-webfont.woff2') format('woff2'),
-         url('../../fonts/aldrich-regular-webfont.woff') format('woff'),
-         url('../../fonts/aldrich-regular-webfont.ttf') format('truetype');
+    font-family: 'avenir';
+    src: url('../../fonts/Avenir-Medium.eot');
+    src: url('../../fonts/Avenir-Medium.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/Avenir-Medium.woff') format('woff'),
+         url('../../fonts/Avenir-Medium.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 
 }
-
-
-
-@font-face {
-    font-family: 'anonymous_proregular';
-    src: url('../../fonts/anonymouspro-regular-webfont.eot');
-    src: url('../../fonts/anonymouspro-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../../fonts/anonymouspro-regular-webfont.woff2') format('woff2'),
-         url('../../fonts/anonymouspro-regular-webfont.woff') format('woff'),
-         url('../../anonymouspro-regular-webfont.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
 
 
  /// icon moon
-
-
 
  @font-face {
     font-family: 'icomoon';

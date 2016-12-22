@@ -15,7 +15,6 @@
 // $bp-wide              : 992;  // Set in px
 // $bp-huge              : 1600; // Set in px
  
-
 /* Dropdown Button */
 .dropbtn {
     background-color: #4CAF50;
@@ -63,7 +62,8 @@
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content a:hover {
+	background-color: #f1f1f1}
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show { display:block; }
@@ -90,6 +90,7 @@ body, html {
 	// overflow: hidden;
 	transition: opacity 400ms;
 	width:100%;
+	background-color:#000;
 
 }
 
