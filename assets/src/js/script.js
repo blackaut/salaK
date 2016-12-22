@@ -22,6 +22,7 @@
 		FBZ.control.onResizeStage();
 		FBZ.control.defineStage();
 		FBZ.control.resizeContentBlock();
+		FBZ.control.activateMenu();
 
 	});// END DOC READY
 	
@@ -33,7 +34,6 @@
 		stageH	: window.innerHeight, //total document size
 		stageW	: window.innerWidth,
 		stateObj : {},
-		currentSection : "home",
 		currentArticule : "",
 		currentSectionIndex : 0,
 		i18n : null,
@@ -49,7 +49,8 @@
 		swapToMobileBreakpoint:420,
 		swapToTabletBreakpoint:1024,
 		date : new Date(),
-		dropdown : ""
+		dropdown : "",
+		currentSection : "#cartelera"
 
 	};
 
@@ -64,7 +65,10 @@
 		$footer				:$('footer'),
 		$leftContainer 		:$('.left-container'),
 		$siteMenu			:$('.site-menu'),
+		$btnMenu			:$('.menu-btn'),
 		$address			:$('address'),
+		$mailto				:$('.mailto'),
+		$telephone			:$('.telephone'),
 		$centralContainer 	:$('.central-container'),
 		$rightContainer		:$('.right-container'),
 		dropdownCartelera	: document.getElementById("dropdown-cartelera"),
@@ -75,7 +79,7 @@
 	FBZ.control = {
 		// add function here
 		init : function () {
-			console.debug('FabzOff is running');
+			console.debug('SALA K is running');
 			FBZ.control.getTime();
 
 			FBZ.control.populateLeftContainer();
@@ -85,14 +89,84 @@
 
 		},
 
+		activateMenu : function () {
 
+			FBZ.view.$btnMenu.on("click",FBZ.control.displayCategory);
+
+		},
+
+		displayCategory : function (e) {
+			// e.preventDefault();
+			console.dir(e.currentTarget.hash);
+			console.log("click");
+			FBZ.model.currentSection = e.currentTarget.hash;
+			FBZ.control.hideSections();
+
+			switch (FBZ.model.currentSection) {
+				case "#cartelera": 
+					FBZ.control.displayCartelera();
+				break;
+				case "#eventos":
+					FBZ.control.displayEventos();
+				break;
+					case "#salaK":
+					FBZ.control.displaySalaK();
+				break;
+				case "#nosotros":
+					FBZ.control.displayNosotros();
+				break;
+				case "#contacto":
+					FBZ.control.displayContacto();
+				break;
+			}
+
+
+
+		},
 
 		displayMovies : function () {
 
 			console.log("displayMovies");
 		},
 
-		createCarteleraDropdown: function () {
+
+		displayCartelera : function () {
+
+			FBZ.control.createCartelera();
+			console.log("displayCartelera");
+		},
+
+
+		displayEventos : function () {
+
+			console.log("displayEventos");
+			FBZ.control.createEventos();
+
+		},
+
+		displaySalaK : function () {
+
+			console.log("displaySalaK");
+			FBZ.control.createSalaK();
+		},
+
+		displayNosotros : function () {
+
+			console.log("displayNosotros");
+			FBZ.control.createNosotros();
+		},
+		displayContacto : function () {
+
+			console.log("displayContacto");
+			FBZ.control.createContacto();
+
+		},
+
+		hideSections : function () {
+			FBZ.view.$centralContainer.children().remove(); 
+		},
+
+		createCartelera: function () {
 
 			FBZ.model.centralContainer = ""; 
 
@@ -111,11 +185,10 @@
 			FBZ.view.$centralContainer.append(FBZ.model.dropdown);
 
 
-
 			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
     		for ( var i = 0 ; i < FBZ.model.noBrain.cartelera.elements.length ; i ++ ) { 
 //				
-				console.log(FBZ.model.noBrain.cartelera.elements[i]);
+				// console.log(FBZ.model.noBrain.cartelera.elements[i]);
 				
     				// key: the name of the object key
 				// console.log(key,index);
@@ -139,7 +212,7 @@
 						"<p class='cartelera-hora'>"+FBZ.model.noBrain.cartelera.elements[i].Hora+"</p>"+
 						"<p class='cartelera-sinopsis'>"+FBZ.model.noBrain.cartelera.elements[i].Sinopsis+"</p>"+
 						"<p class='cartelera-invitado'>"+FBZ.model.noBrain.cartelera.elements[i].Invitado+"</p>"+
-					"</div><!--end cartelera block-->";
+					"</div>";
 				}
 
 			}
@@ -147,6 +220,172 @@
 			FBZ.view.$centralContainer.append(FBZ.model.centralContainer);
 
 		},
+
+
+		createEventos: function () {
+
+			FBZ.model.centralContainer = ""; 
+
+			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
+    		for ( var i = 0 ; i < FBZ.model.noBrain.eventos.elements.length ; i ++ ) { 
+//				
+				// console.log(FBZ.model.noBrain.cartelera.elements[i]);
+				
+    				// key: the name of the object key
+				// console.log(key,index);
+				if(FBZ.model.noBrain.cartelera.elements[i].Privacidad != "PRIVADO") {  
+				
+
+
+				FBZ.model.centralContainer += 
+
+					"<div class='eventos-block-big'>"+
+				 		"<picture class='eventos-imagen'>"+
+							"<source srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_S+"' media='(max-width: 320px)'/>"+
+							"<source srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_M+"' media='(max-width: 650px)'/>"+
+							"<source srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_L+"' media='(max-width: 900px)'/>"+
+							"<img srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_M+"' alt='"+FBZ.model.noBrain.eventos.elements[i].Titulo+"-imagen'/>"+
+						"</picture>"+
+						"<h2 class='eventos-titulo'>"+FBZ.model.noBrain.eventos.elements[i].Nombre+"</h2>"+
+						"<h3 class='eventos-fecha'>"+FBZ.model.noBrain.eventos.elements[i].Fecha+"</h3>"+
+						"<p class='eventos-hora'>"+FBZ.model.noBrain.eventos.elements[i].Hora+"</p>"+
+						"<p class='eventos-descripcion-larga'>"+FBZ.model.noBrain.eventos.elements[i].Descripcion_larga+"</p>"+
+					"</div>";
+				}
+
+			}
+
+			FBZ.view.$centralContainer.append(FBZ.model.centralContainer);
+
+		},
+
+
+		createEventos: function () {
+
+			FBZ.model.centralContainer = ""; 
+
+			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
+    		for ( var i = 0 ; i < FBZ.model.noBrain.eventos.elements.length ; i ++ ) { 
+//				
+				// console.log(FBZ.model.noBrain.cartelera.elements[i]);
+				
+    				// key: the name of the object key
+				// console.log(key,index);
+				if(FBZ.model.noBrain.cartelera.elements[i].Privacidad != "PRIVADO") {  
+				
+
+				FBZ.model.centralContainer += 
+
+					"<div class='eventos-block-big'>"+
+				 		"<picture class='eventos-imagen'>"+
+							"<source srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_S+"' media='(max-width: 320px)'/>"+
+							"<source srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_M+"' media='(max-width: 650px)'/>"+
+							"<source srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_L+"' media='(max-width: 900px)'/>"+
+							"<img srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_M+"' alt='"+FBZ.model.noBrain.eventos.elements[i].Titulo+"-imagen'/>"+
+						"</picture>"+
+						"<h2 class='eventos-titulo'>"+FBZ.model.noBrain.eventos.elements[i].Nombre+"</h2>"+
+						"<h3 class='eventos-fecha'>"+FBZ.model.noBrain.eventos.elements[i].Fecha+"</h3>"+
+						"<p class='eventos-hora'>"+FBZ.model.noBrain.eventos.elements[i].Hora+"</p>"+
+						"<p class='eventos-descripcion-larga'>"+FBZ.model.noBrain.eventos.elements[i].Descripcion_larga+"</p>"+
+					"</div>";
+				}
+			}
+
+			FBZ.view.$centralContainer.append(FBZ.model.centralContainer);
+
+		},
+
+		createSalaK: function () {
+
+			FBZ.model.centralContainer = ""; 
+			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
+    		for ( var i = 0 ; i < FBZ.model.noBrain.salaK.elements.length ; i ++ ) { 
+//				
+				// console.log(FBZ.model.noBrain.cartelera.elements[i]);
+				
+    				// key: the name of the object key
+				// console.log(key,index);
+				FBZ.model.centralContainer += 
+
+					"<div class='salak-block'>"+
+				 		"<div class='salaK-slideshow'></div>"+
+					"<h2 class='salaK-titulo'>"+FBZ.model.noBrain.salaK.elements[i].Titulo+"</h2>"+
+						"<p class='salaK-descripcion'>"+FBZ.model.noBrain.salaK.elements[i].Descripcion+"</p>"+
+						"<div class='salaK-logos'></div>"+
+					"</div>";
+				}
+
+			FBZ.view.$centralContainer.append(FBZ.model.centralContainer);
+
+			// to populate slideshow
+
+// 			FBZ.view.salaKSlideshow = $(".salaK-slideshow");
+// 			FBZ.model.slideshow = "";
+
+// 			for ( var i = 0 ; i < FBZ.model.noBrain.salaK_slideshow.elements.length ; i ++ ) { 
+// //				
+				
+// 			}
+
+			FBZ.view.salaKLogos = $(".salaK-logos");
+			FBZ.model.logos = "";
+
+			for ( var i = 0 ; i < FBZ.model.noBrain.logos.elements.length ; i ++ ) { 
+//				
+				FBZ.model.logos += "<a class='salak-logos' target='_blank' href='"+FBZ.model.noBrain.logos.elements[i].Link+"'>"+
+										"<img class='logo-small' src="+FBZ.model.noBrain.logos.elements[i].Logo+" alt="+FBZ.model.noBrain.logos.elements[i].Titulo+">"+
+									"</a>";
+			}
+			FBZ.view.salaKLogos.append(FBZ.model.logos);
+
+
+		},
+
+
+		createNosotros: function () {
+
+			FBZ.model.centralContainer = ""; 
+			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
+    		for ( var i = 0 ; i < FBZ.model.noBrain.nosotros.elements.length ; i ++ ) { 
+//				
+				// console.log(FBZ.model.noBrain.cartelera.elements[i]);
+				
+    				// key: the name of the object key
+				// console.log(key,index);
+				FBZ.model.centralContainer += 
+
+					"<div class='nosotros-block'>"+
+					"<h2 class='nosotros-titulo'>"+FBZ.model.noBrain.nosotros.elements[i].Titulo+"</h2>"+
+						"<p class='nosotros-descripcion'>"+FBZ.model.noBrain.nosotros.elements[i].Descripcion+"</p>"+
+						"<div class='nosotros-logos'></div>"+
+					"</div>";
+				}
+
+			FBZ.view.$centralContainer.append(FBZ.model.centralContainer);
+
+		},
+
+
+		createContacto: function () {
+
+			FBZ.model.centralContainer = ""; 
+			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
+    		for ( var i = 0 ; i < FBZ.model.noBrain.nosotros.elements.length ; i ++ ) { 
+//				
+				// console.log(FBZ.model.noBrain.cartelera.elements[i]);
+				
+    				// key: the name of the object key
+				// console.log(key,index);
+					FBZ.model.centralContainer += "<iframe src='http://eepurl.com/bTgx0b'></iframe>";
+
+				}
+
+			FBZ.view.$centralContainer.append(FBZ.model.centralContainer);
+
+		},
+
+
+
 
 		getMonthString : function(index) {
 			if(index > 11 ) {
@@ -393,7 +632,6 @@
 				FBZ.model.background = FBZ.model.noBrain.fondo.elements[month].Imagen_L;
 			}
 
-			console.log("holiiii");
 			FBZ.view.$bgPicture.css("background-image", "url("+FBZ.model.background+")");  
 
 		}, 
@@ -404,9 +642,11 @@
 			FBZ.view.$leftContainer;
 
 			FBZ.model.currentAddress = FBZ.model.noBrain.contacto.elements[0].Direccion;
+			FBZ.model.currentEmailAddress = "<a href='mailto:"+FBZ.model.noBrain.contacto.elements[0].Mail+"'>"+FBZ.model.noBrain.contacto.elements[0].Mail +"</a>";
+			FBZ.model.currentTelephoneAddress = "<a href='tel:"+FBZ.model.noBrain.contacto.elements[0].Fono+"'>"+FBZ.model.noBrain.contacto.elements[0].Fono +"</a>";
 			// console.log(FBZ.model.currentAddress);
-			FBZ.view.$address.append(FBZ.model.currentAddress);
-			FBZ.view.$direccion.append(FBZ.model.currentAddress);
+			FBZ.view.$mailto.append(FBZ.model.currentEmailAddress);
+			FBZ.view.$telephone.append(FBZ.model.currentTelephoneAddress);
 			FBZ.view.$address.append(FBZ.model.currentAddress);
 
 				// console.log("left left-container")
@@ -418,7 +658,7 @@
 
 		populateCentralContainer :  function () { 
 
-			FBZ.control.createCarteleraDropdown();
+			FBZ.control.createCartelera();
 		
 			// FBZ.control.activateCarteleraDropdown();
 
@@ -441,14 +681,16 @@
 				if(FBZ.model.noBrain.eventos.elements[i].Privacidad != "PRIVADO") {  
 				
 				FBZ.model.rightContainer += 																			
-					"<div class='eventos-block' articulo-URL='"+FBZ.model.noBrain.eventos.elements[i].URL_articulo+"'>"+
+					"<a class='eventos-block-big' href='#"+FBZ.model.noBrain.eventos.elements[i].URL_articulo+"'>"+
 				 		"<picture class='eventos-imagen'>"+
-							"<img srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_avatar+"' alt='"+FBZ.model.noBrain.eventos.elements[i].nombre+"-imagen'/>"+
+							"<img srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_S+"' alt='"+FBZ.model.noBrain.eventos.elements[i].nombre+"-imagen'/>"+
 						"</picture>"+
 						"<h2 class='eventos-nombre'>"+FBZ.model.noBrain.eventos.elements[i].Nombre+"</h2>"+
 						"<h3 class='eventos-fecha'>"+FBZ.model.noBrain.eventos.elements[i].Fecha+"</h3>"+
-						"<p class='eventos-hora'>"+FBZ.model.noBrain.eventos.elements[i].Ano+"</p>"+
-						"<p class='descripcion-corta'>"+FBZ.model.noBrain.eventos.elements[i].Descripcion_corta+"</p>";
+						"<p class='eventos-hora'>"+FBZ.model.noBrain.eventos.elements[i].Hora+"</p>"+
+						"<p class='descripcion-corta'>"+FBZ.model.noBrain.eventos.elements[i].Descripcion_corta+"</p>"+
+						"</a>"
+						;
 				}
 
 			}
