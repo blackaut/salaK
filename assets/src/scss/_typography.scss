@@ -230,23 +230,24 @@ small {
  */
 a {
 	&, &:link {
-		color: $color-link-default;
+		color: white;
 		text-decoration: none;
 	}
 
 	&:visited {
-		color: $color-link-visited;
-		text-decoration: none;
+			color: white;
+			text-decoration: none;
 	}
 
 	&:hover, &:focus {
-		color: $color-link-hover;
-		//text-decoration: underline;
+		color: white;
+
+			//text-decoration: underline;
 	}
 
 	&:active {
-		color: $color-link-active;
-		//text-decoration: underline;
+		color: white;
+			//text-decoration: underline;
 	}
 }
 

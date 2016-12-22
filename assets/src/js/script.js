@@ -319,14 +319,20 @@
 
 			// to populate slideshow
 
-// 			FBZ.view.salaKSlideshow = $(".salaK-slideshow");
-// 			FBZ.model.slideshow = "";
+			FBZ.view.salaKSlideshow = $(".salaK-slideshow");
+			FBZ.model.slideshow = "";
 
-// 			for ( var i = 0 ; i < FBZ.model.noBrain.salaK_slideshow.elements.length ; i ++ ) { 
-// //				
-				
-// 			}
+			for ( var i = 0 ; i < FBZ.model.noBrain.slideshow_salaK.elements.length ; i ++ ) { 
+//				
+				FBZ.model.slideshow += "<picture class='eventos-imagen'>"+
+							"<source srcset='"+FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_S+"' media='(max-width: 320px)'/>"+
+							"<source srcset='"+FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_M+"' media='(max-width: 650px)'/>"+
+							"<source srcset='"+FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_L+"' media='(max-width: 900px)'/>"+
+							"<img srcset='"+FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_M+"' alt='"+FBZ.model.noBrain.eventos.elements[i].Titulo+"-imagen'/>"+
+						"</picture>";
+			}
 
+// 			populate logos 
 			FBZ.view.salaKLogos = $(".salaK-logos");
 			FBZ.model.logos = "";
 

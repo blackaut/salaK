@@ -121,15 +121,17 @@ body, html {
 #mainContent {
 	display: flex; /* or inline-flex */
 	flex-direction: row ;
+	z-index:2;
 }
 
 .central-container {
 
 	height: 100%;
 	width:60vw;
-	// background:#999;
 	margin-left:20vw;
 	padding: 10px;
+	z-index:2;
+
 
 }
 
@@ -141,6 +143,7 @@ body, html {
 	padding: 10px;
 	display: flex;
     flex-direction: column;
+	z-index:2;
 
 }
 
@@ -150,15 +153,16 @@ body, html {
 	// background:#333;
 	// position:fixed;
 	padding: 10px;
+	z-index:2;
 }
 
 .bg-picture {
-	position:absolute;
+	position:fixed;
 	top:0;
 	left:0;
 	right:0;
 	bottom:0;
-	z-index:-1;
+	z-index:1;
 	background-position:center;
 	background-size:cover;
 	background-repeat: no-repeat;
@@ -168,7 +172,6 @@ body, html {
 /// header 
 
 
-
 .logo-header {
 	width: 100%;
 	margin: 0 auto;
@@ -176,6 +179,8 @@ body, html {
 .menu-btn {
 	display:block;
 	cursor: pointer;
+	color:white!important;
+	font-size:0.7em;
 }
 
 .site-menu {
