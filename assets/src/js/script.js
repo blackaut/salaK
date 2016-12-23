@@ -50,7 +50,13 @@
 		swapToTabletBreakpoint:1024,
 		date : new Date(),
 		dropdown : "",
-		currentSection : "#cartelera"
+		currentSection : "#cartelera",
+		slideshowDescription : [],
+		clock: {},
+		time: 5000,
+		currentImage:0,
+		totalImage:0,
+
 
 	};
 
@@ -101,6 +107,7 @@
 			console.log("click");
 			FBZ.model.currentSection = e.currentTarget.hash;
 			FBZ.control.hideSections();
+			FBZ.control.fadeShow(FBZ.view.$centralContainer);
 
 			switch (FBZ.model.currentSection) {
 				case "#cartelera": 
@@ -318,19 +325,38 @@
 			FBZ.view.$centralContainer.append(FBZ.model.centralContainer);
 
 			// to populate slideshow
-
 			FBZ.view.salaKSlideshow = $(".salaK-slideshow");
+
+			FBZ.view.salaKSlideshow.append(
+				"<div class='slider-control slider-home-control'></div>"
+			);
+
+			
+			FBZ.view.sliderControl = $(".slider-home-control");
+
 			FBZ.model.slideshow = "";
+			FBZ.model.slideshowControl = "";
+
 
 			for ( var i = 0 ; i < FBZ.model.noBrain.slideshow_salaK.elements.length ; i ++ ) { 
 //				
-				FBZ.model.slideshow += "<picture class='eventos-imagen'>"+
+				FBZ.model.slideshow += "<picture class='slideshow-imagen'>"+
 							"<source srcset='"+FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_S+"' media='(max-width: 320px)'/>"+
 							"<source srcset='"+FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_M+"' media='(max-width: 650px)'/>"+
 							"<source srcset='"+FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_L+"' media='(max-width: 900px)'/>"+
-							"<img srcset='"+FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_M+"' alt='"+FBZ.model.noBrain.eventos.elements[i].Titulo+"-imagen'/>"+
+							"<img srcset='"+FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_M+"' alt='"+FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_descripcion+"-imagen'/>"+
 						"</picture>";
+
+				FBZ.model.slideshowDescription.push(FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_descripcion);
+				
+				FBZ.model.slideshowControl += "<div class='slider-dot'></div>";
 			}
+
+			FBZ.view.salaKSlideshow.append(FBZ.model.slideshow);
+
+
+
+			FBZ.view.sliderControl.append(FBZ.model.slideshowControl);
 
 // 			populate logos 
 			FBZ.view.salaKLogos = $(".salaK-logos");
@@ -344,9 +370,60 @@
 			}
 			FBZ.view.salaKLogos.append(FBZ.model.logos);
 
+		},
+
+
+/// slider stuff 
+
+		createInterval : function () { 
+			 FBZ.model.clock = setInterval( function() 
+		{
+	//			console.log("interval");
+				FBZ.control.playSlider();
+        }, FBZ.model.time);
+		}, 
+
+		deleteInterval : function () { 
+			clearInterval(FBZ.model.clock);
+		},
+		createSliderControl : function () {
+			//FBZ.slider.currentImage = 0;
+			FBZ.model.totalImage  = FBZ.view.sliderControl.children().length-1;
+		//	console.log("	FBZ.slider.totalImage ",	FBZ.slider.totalImage );
+			FBZ.view.sliderControl.children().on("click",FBZ.control.onDotClick);
+			FBZ.control.changeImageToIndex(FBZ.slider.currentImage);
+		},
+
+
+		onDotClick : function (e) {
+
+		//	console.log($(e.currentTarget).index());
+			FBZ.control.changeImageToIndex($(e.currentTarget).index());
+			FBZ.control.deleteInterval();
+		},
+
+		changeImageToIndex : function (index) {
+
+			FBZ.view.slider.children().removeClass("active");
+			FBZ.view.sliderControl.children().removeClass('active');
+			
+			$(FBZ.view.salaKSlideshow.children().get(index)).addClass('active');
+			$(FBZ.view.sliderControl.children().get(index)).addClass('active');
 
 		},
 
+		playSlider: function () { 
+
+			console.log(FBZ.model.currentImage, FBZ.model.totalImage);
+			if(FBZ.model.currentImage < FBZ.model.totalImage) { 
+				FBZ.model.currentImage ++;
+			}else { 
+
+				FBZ.model.currentImage = 0;
+			}
+				FBZ.control.changeImageToIndex(FBZ.model.currentImage);
+
+	},
 
 		createNosotros: function () {
 
