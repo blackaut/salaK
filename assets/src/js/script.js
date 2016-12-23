@@ -75,6 +75,7 @@
 		$address			:$('address'),
 		$mailto				:$('.mailto'),
 		$telephone			:$('.telephone'),
+		$socialBlock		:$('.social-block'),
 		$centralContainer 	:$('.central-container'),
 		$rightContainer		:$('.right-container'),
 		dropdownCartelera	: document.getElementById("dropdown-cartelera"),
@@ -124,8 +125,6 @@
 				break;
 			}
 
-
-
 		},
 
 		displayMovies : function () {
@@ -159,11 +158,11 @@
 			console.log("displayNosotros");
 			FBZ.control.createNosotros();
 		},
+
 		displayContacto : function () {
 
 			console.log("displayContacto");
 			FBZ.control.createContacto();
-
 		},
 
 		hideSections : function () {
@@ -190,7 +189,7 @@
 
 
 			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
-    		for ( var i = 0 ; i < FBZ.model.noBrain.cartelera.elements.length ; i ++ ) { 
+			for ( var i = 0 ; i < FBZ.model.noBrain.cartelera.elements.length ; i ++ ) { 
 //				
 				// console.log(FBZ.model.noBrain.cartelera.elements[i]);
 				
@@ -372,7 +371,6 @@
 
 			FBZ.view.salaKSlideshow.children().removeClass("active");
 			FBZ.view.sliderControl.children().removeClass('active');
-			
 			$(FBZ.view.salaKSlideshow.children().get(index)).addClass('active');
 			$(FBZ.view.sliderControl.children().get(index)).addClass('active');
 
@@ -690,10 +688,6 @@
 
 			FBZ.view.$leftContainer;
 
-
-
-
-
 			FBZ.model.currentAddress = "<a target='_blank' href='https://maps.google.com/?q=Condell 1307, Providencia&t=m'>"+
      									"<img class='icon-location' src='http://salak.cl/assets/img/location.svg'/>"+
        									FBZ.model.noBrain.contacto.elements[0].Direccion+
@@ -701,6 +695,27 @@
 			FBZ.model.currentEmailAddress = "<a href='mailto:"+FBZ.model.noBrain.contacto.elements[0].Mail+"'>"+FBZ.model.noBrain.contacto.elements[0].Mail +"</a>";
 			FBZ.model.currentTelephoneAddress = "<a href='tel:"+FBZ.model.noBrain.contacto.elements[0].Fono+"'>"+FBZ.model.noBrain.contacto.elements[0].Fono +"</a>";
 			// console.log(FBZ.model.currentAddress);
+
+
+			FBZ.model.socialNetworks = ""; 
+			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
+    		for ( var i = 0 ; i < FBZ.model.noBrain.redes.elements.length ; i ++ ) { 
+//				
+				// console.log(FBZ.model.noBrain.cartelera.elements[i]);
+				
+    				// key: the name of the object key
+				// console.log(key,index);
+				FBZ.model.socialNetworks += 
+					"<a class='social-link' target='_blank' href='"+FBZ.model.noBrain.redes.elements[i].Link+"' alt='"+FBZ.model.noBrain.redes.elements[i].Nombre+"'>"+
+						"<img src='"+FBZ.model.noBrain.redes.elements[i].Icono_svg+"'/>"+
+					"</a>";
+				}
+
+			FBZ.view.$socialBlock.append(FBZ.model.socialNetworks);
+
+
+
+
 			FBZ.view.$mailto.append(FBZ.model.currentEmailAddress);
 			FBZ.view.$telephone.append(FBZ.model.currentTelephoneAddress);
 			FBZ.view.$address.append(FBZ.model.currentAddress);

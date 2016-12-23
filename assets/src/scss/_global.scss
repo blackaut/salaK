@@ -14,6 +14,22 @@
 // $bp-mid               : 768;  // Set in px
 // $bp-wide              : 992;  // Set in px
 // $bp-huge              : 1600; // Set in px
+
+.social-block {
+	width:100%;
+	display:flex;
+	flex-direction: row;
+	padding:15px;
+}
+.social-link {
+	margin: auto;  /* Magic! */
+	img {
+		width: 4vw;
+		margin: 0 auto;
+
+	}
+}
+
 //cartelera 
 .line_after::after {
 	content: "|";
