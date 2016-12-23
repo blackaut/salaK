@@ -14,6 +14,51 @@
 // $bp-mid               : 768;  // Set in px
 // $bp-wide              : 992;  // Set in px
 // $bp-huge              : 1600; // Set in px
+//cartelera 
+.line_after::after {
+	content: "|";
+	padding-right:5px;
+}
+
+.cartelera-titulo {}
+.cartelera-ano {
+	display:inline-block;
+}
+.cartelera-director {
+		display:inline-block;
+
+}
+.cartelera-duracion {
+			display:block;
+
+}
+.cartelera-pais {
+			display:inline-block;
+
+}
+.cartelera-fecha { 	display:inline-block;
+}
+.cartelera-hora {
+		display:inline-block;
+}
+.cartelera-sinopsis {
+	display:none;
+}
+.cartelera-invitado {}
+
+// headings
+
+h2 {
+	font-size:1.2em;
+	padding: 0px!important;
+	margin: 10px 0!important;
+
+}
+h3 {
+	font-size:1em;
+	padding: 0px!important;
+	margin: 5 px 0!important;
+}
 
 //// sliders
 
@@ -245,6 +290,31 @@ body, html {
 }
 
 address {
+
+	font-size: .8em;
+	text-align:center;
+	line-height:1.4em;
+	margin-bottom:1em;
+}
+
+.icon-location {
+	width:32px;
+	fill:white;
+}
+
+.telephone {
+	text-align:center;
+	line-height:1.8em;
+}
+.telephone::before {
+
+	content:"+";
+}
+
+.mailto {
+	text-align:center;
+	margin-bottom:0.8em;
+	font-size:1.1em;
 
 }
 

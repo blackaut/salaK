@@ -210,13 +210,14 @@
 							"<source srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_L+"' media='(max-width: 900px)'/>"+
 							"<img srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_M+"' alt='"+FBZ.model.noBrain.cartelera.elements[i].Titulo+"-imagen'/>"+
 						"</picture>"+
-						"<h2 class='cartelera-titulo'>"+FBZ.model.noBrain.cartelera.elements[i].Titulo+"</h2>"+
-						"<h3 class='cartelera-director'>"+FBZ.model.noBrain.cartelera.elements[i].Director+"</h3>"+
-						"<p class='cartelera-ano'>"+FBZ.model.noBrain.cartelera.elements[i].Ano+"</p>"+
+						"<h2 class='cartelera-titulo '>"+FBZ.model.noBrain.cartelera.elements[i].Titulo+"</h2>"+
+						"<p class='cartelera-ano line_after'>"+FBZ.model.noBrain.cartelera.elements[i].Ano+"  </p>"+
+						"<h3 class='cartelera-director line_after'> "+FBZ.model.noBrain.cartelera.elements[i].Director+"  </h3>"+
 						"<p class='cartelera-pais'>"+FBZ.model.noBrain.cartelera.elements[i].Pais+"</p>"+
-						"<p class='cartelera-duracion'>"+FBZ.model.noBrain.cartelera.elements[i].Duracion+"</p>"+
-						"<p class='cartelera-fecha'>"+FBZ.model.noBrain.cartelera.elements[i].Fecha+"</p>"+
+						"<br>"+
+						"<p class='cartelera-fecha line_after'>"+FBZ.model.noBrain.cartelera.elements[i].Fecha+"  </p>"+
 						"<p class='cartelera-hora'>"+FBZ.model.noBrain.cartelera.elements[i].Hora+"</p>"+
+						"<p class='cartelera-duracion'>"+FBZ.model.noBrain.cartelera.elements[i].Duracion+"</p>"+
 						"<p class='cartelera-sinopsis'>"+FBZ.model.noBrain.cartelera.elements[i].Sinopsis+"</p>"+
 						"<p class='cartelera-invitado'>"+FBZ.model.noBrain.cartelera.elements[i].Invitado+"</p>"+
 					"</div>";
@@ -724,7 +725,14 @@
 
 			FBZ.view.$leftContainer;
 
-			FBZ.model.currentAddress = FBZ.model.noBrain.contacto.elements[0].Direccion;
+
+
+
+
+			FBZ.model.currentAddress = "<a target='_blank' href='https://maps.google.com/?q=Condell 1307, Providencia&t=m'>"+
+     									"<img class='icon-location' src='http://salak.cl/assets/img/location.svg'/>"+
+       									FBZ.model.noBrain.contacto.elements[0].Direccion+
+       									"</a>";
 			FBZ.model.currentEmailAddress = "<a href='mailto:"+FBZ.model.noBrain.contacto.elements[0].Mail+"'>"+FBZ.model.noBrain.contacto.elements[0].Mail +"</a>";
 			FBZ.model.currentTelephoneAddress = "<a href='tel:"+FBZ.model.noBrain.contacto.elements[0].Fono+"'>"+FBZ.model.noBrain.contacto.elements[0].Fono +"</a>";
 			// console.log(FBZ.model.currentAddress);
