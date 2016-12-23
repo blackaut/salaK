@@ -87,7 +87,6 @@
 		init : function () {
 			console.debug('SALA K is running');
 			FBZ.control.getTime();
-
 			FBZ.control.populateLeftContainer();
 			FBZ.control.populateCentralContainer();
 			FBZ.control.populateRightContainer();
@@ -103,8 +102,6 @@
 
 		displayCategory : function (e) {
 			// e.preventDefault();
-			console.dir(e.currentTarget.hash);
-			console.log("click");
 			FBZ.model.currentSection = e.currentTarget.hash;
 			FBZ.control.hideSections();
 			FBZ.control.fadeShow(FBZ.view.$centralContainer);
@@ -222,7 +219,6 @@
 						"<p class='cartelera-invitado'>"+FBZ.model.noBrain.cartelera.elements[i].Invitado+"</p>"+
 					"</div>";
 				}
-
 			}
 
 			FBZ.view.$centralContainer.append(FBZ.model.centralContainer);
@@ -242,8 +238,6 @@
     				// key: the name of the object key
 				// console.log(key,index);
 				if(FBZ.model.noBrain.cartelera.elements[i].Privacidad != "PRIVADO") {  
-				
-
 
 				FBZ.model.centralContainer += 
 
@@ -266,7 +260,6 @@
 			FBZ.view.$centralContainer.append(FBZ.model.centralContainer);
 
 		},
-
 
 		createEventos: function () {
 
@@ -355,10 +348,9 @@
 
 			FBZ.view.salaKSlideshow.append(FBZ.model.slideshow);
 
-
-
 			FBZ.view.sliderControl.append(FBZ.model.slideshowControl);
 
+			FBZ.control.createSliderControl();
 // 			populate logos 
 			FBZ.view.salaKLogos = $(".salaK-logos");
 			FBZ.model.logos = "";
@@ -390,22 +382,24 @@
 		createSliderControl : function () {
 			//FBZ.slider.currentImage = 0;
 			FBZ.model.totalImage  = FBZ.view.sliderControl.children().length-1;
-		//	console.log("	FBZ.slider.totalImage ",	FBZ.slider.totalImage );
-			FBZ.view.sliderControl.children().on("click",FBZ.control.onDotClick);
-			FBZ.control.changeImageToIndex(FBZ.slider.currentImage);
+			console.log("	FBZ.slider.totalImage ",	FBZ.model.totalImage );
+			$(".slider-dot").on("click",FBZ.control.onDotClick);
+			FBZ.control.changeImageToIndex(FBZ.model.currentImage);
+			FBZ.control.createInterval();
+		//	FBZ.sliderHome.deleteInterval();
 		},
 
 
 		onDotClick : function (e) {
 
-		//	console.log($(e.currentTarget).index());
+			console.log($(e.currentTarget).index());
 			FBZ.control.changeImageToIndex($(e.currentTarget).index());
 			FBZ.control.deleteInterval();
 		},
 
 		changeImageToIndex : function (index) {
 
-			FBZ.view.slider.children().removeClass("active");
+			FBZ.view.salaKSlideshow.children().removeClass("active");
 			FBZ.view.sliderControl.children().removeClass('active');
 			
 			$(FBZ.view.salaKSlideshow.children().get(index)).addClass('active');
