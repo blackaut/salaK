@@ -225,42 +225,6 @@
 
 		},
 
-
-		createEventos: function () {
-
-			FBZ.model.centralContainer = ""; 
-
-			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
-    		for ( var i = 0 ; i < FBZ.model.noBrain.eventos.elements.length ; i ++ ) { 
-//				
-				// console.log(FBZ.model.noBrain.cartelera.elements[i]);
-				
-    				// key: the name of the object key
-				// console.log(key,index);
-				if(FBZ.model.noBrain.cartelera.elements[i].Privacidad != "PRIVADO") {  
-
-				FBZ.model.centralContainer += 
-
-					"<div class='eventos-block-big'>"+
-				 		"<picture class='eventos-imagen'>"+
-							"<source srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_S+"' media='(max-width: 320px)'/>"+
-							"<source srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_M+"' media='(max-width: 650px)'/>"+
-							"<source srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_L+"' media='(max-width: 900px)'/>"+
-							"<img srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_M+"' alt='"+FBZ.model.noBrain.eventos.elements[i].Titulo+"-imagen'/>"+
-						"</picture>"+
-						"<h2 class='eventos-titulo'>"+FBZ.model.noBrain.eventos.elements[i].Nombre+"</h2>"+
-						"<h3 class='eventos-fecha'>"+FBZ.model.noBrain.eventos.elements[i].Fecha+"</h3>"+
-						"<p class='eventos-hora'>"+FBZ.model.noBrain.eventos.elements[i].Hora+"</p>"+
-						"<p class='eventos-descripcion-larga'>"+FBZ.model.noBrain.eventos.elements[i].Descripcion_larga+"</p>"+
-					"</div>";
-				}
-
-			}
-
-			FBZ.view.$centralContainer.append(FBZ.model.centralContainer);
-
-		},
-
 		createEventos: function () {
 
 			FBZ.model.centralContainer = ""; 
@@ -386,7 +350,14 @@
 			$(".slider-dot").on("click",FBZ.control.onDotClick);
 			FBZ.control.changeImageToIndex(FBZ.model.currentImage);
 			FBZ.control.createInterval();
-		//	FBZ.sliderHome.deleteInterval();
+			FBZ.view.$btnMenu.on("click",FBZ.control.deleteIntervalOnClick);
+		},
+
+		deleteIntervalOnClick : function () {
+
+			FBZ.view.$btnMenu.off("click",FBZ.control.deleteIntervalOnClick);
+			FBZ.control.deleteInterval();
+
 		},
 
 
