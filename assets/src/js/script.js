@@ -620,9 +620,15 @@
 				"</div>"+
 				"<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>";
 			"</div>"+
+			"<h2>Incribete en nuestra lista de mail</h2>"+
+				"<div class='mailto'></div>"+
+				"<div class='telephone'></div>";
+
 				// <!--End mc_embed_signup-->
 
 			FBZ.view.$centralContainer.append(FBZ.model.centralContainer);
+			FBZ.view.$mailto.append(FBZ.model.currentEmailAddress);
+			FBZ.view.$telephone.append(FBZ.model.currentTelephoneAddress);
 
 		},
 
@@ -899,8 +905,8 @@
 			FBZ.view.$leftContainer;
 
 			FBZ.model.currentAddress = "<a target='_blank' href='https://www.google.com/maps/place/Sala+K/@-33.4468032,-70.6282056,17z/data=!4m13!1m7!3m6!1s0x9662c57e98f6f6b5:0xee82689ba2896ef8!2sAv.+Condell+1307,+Providencia,+Regi%C3%B3n+Metropolitana,+Chile!3b1!8m2!3d-33.4468032!4d-70.6260169!3m4!1s0x9662c57e98f6f6cb:0xfbc685fe762e8d86!8m2!3d-33.4468032!4d-70.6260169'>"+
-     									"<img class='icon-location' src='http://salak.cl/assets/img/location.svg'/>"+
-       									FBZ.model.noBrain.contacto.elements[0].Direccion+
+     									"<div class='icon-location'> <img  src='http://salak.cl/assets/img/location.svg'/></div>"+
+       									"<p class='address-text'>"+FBZ.model.noBrain.contacto.elements[0].Direccion+"</p>"+
        									"</a>";
 			FBZ.model.currentEmailAddress = "<a href='mailto:"+FBZ.model.noBrain.contacto.elements[0].Mail+"'>"+FBZ.model.noBrain.contacto.elements[0].Mail +"</a>";
 			FBZ.model.currentTelephoneAddress = "<a href='tel:"+FBZ.model.noBrain.contacto.elements[0].Fono+"'>"+FBZ.model.noBrain.contacto.elements[0].Fono +"</a>";
@@ -926,8 +932,6 @@
 
 
 
-			FBZ.view.$mailto.append(FBZ.model.currentEmailAddress);
-			FBZ.view.$telephone.append(FBZ.model.currentTelephoneAddress);
 			FBZ.view.$address.append(FBZ.model.currentAddress);
 
 				// console.log("left left-container")
