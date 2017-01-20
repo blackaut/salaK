@@ -39,7 +39,8 @@
 		i18n : null,
 		noBrain : {},
 		currentLang:"es",
-		months : ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"],
+		months : ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
+		days : ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"],
 		$selectedform : {},
 		// js detection
 		mobileMode:false,
@@ -90,7 +91,7 @@
 			FBZ.control.getTime();
 			FBZ.control.populateLeftContainer();
 			FBZ.control.populateCentralContainer();
-			FBZ.control.populateRightContainer();
+			// FBZ.control.populateRightContainer();
 			FBZ.control.populateBackground();
 
 		},
@@ -111,14 +112,14 @@
 				case "#cartelera": 
 					FBZ.control.displayCartelera();
 				break;
-				case "#eventos":
-					FBZ.control.displayEventos();
+				case "#cuadernoK":
+					FBZ.control.displayCuadernoK();
 				break;
 					case "#salaK":
 					FBZ.control.displaySalaK();
 				break;
-				case "#nosotros":
-					FBZ.control.displayNosotros();
+				case "#fundacionKine":
+					FBZ.control.displayFundacionKine();
 				break;
 				case "#contacto":
 					FBZ.control.displayContacto();
@@ -127,23 +128,41 @@
 
 		},
 
-		displayMovies : function () {
+		activateCurrentSection : function (sectionString) {
 
-			console.log("displayMovies");
+			FBZ.view.$btnMenu.removeClass("active");
+			FBZ.view.$siteMenu.find(sectionString).addClass("active");
+			console.log("section string :", FBZ.view.$siteMenu.find(sectionString))
+
 		},
 
+		injectTopTitle : function (topTileText) {
+			FBZ.model.topTitle= "<div class='top-title-holder'>"+
+										"<div class='top-title-vertical'>"+
+										"<h3 class='top-title'>"+topTileText+"</h3>"+
+									"</div>"+
+								"</div>"; 
+
+			FBZ.view.$centralContainer.prepend(FBZ.model.topTitle);
+		},
 
 		displayCartelera : function () {
 
 			FBZ.control.createCartelera();
 			console.log("displayCartelera");
+			FBZ.control.activateCurrentSection("cartelera");
+			FBZ.control.injectTopTitle("Cartelera");
+			FBZ.control.activateCarteleraExpansion();
+
 		},
 
 
-		displayEventos : function () {
+		displayCuadernoK : function () {
 
-			console.log("displayEventos");
-			FBZ.control.createEventos();
+			console.log("displayCuadernoK");
+			FBZ.control.createCuadernoK();
+			FBZ.control.activateCurrentSection("cuadernoK");
+			FBZ.control.injectTopTitle("Cuaderno K");
 
 		},
 
@@ -151,43 +170,99 @@
 
 			console.log("displaySalaK");
 			FBZ.control.createSalaK();
+			FBZ.control.activateCurrentSection("salaK");
+			FBZ.control.injectTopTitle("Sala K");
+
 		},
 
-		displayNosotros : function () {
+		displayFundacionKine : function () {
 
-			console.log("displayNosotros");
-			FBZ.control.createNosotros();
+			console.log("displayFundacionKine");
+			FBZ.control.createFundacionKine();
+			FBZ.control.activateCurrentSection("fundacion_Kine");
+			//FBZ.control.injectTopTitle("Fundacion Kine");
+
 		},
 
 		displayContacto : function () {
 
 			console.log("displayContacto");
 			FBZ.control.createContacto();
+			FBZ.control.activateCurrentSection("contacto");
+			FBZ.control.injectTopTitle("Contacto");
+
 		},
 
 		hideSections : function () {
 			FBZ.view.$centralContainer.children().remove(); 
 		},
 
+
+		getTimeStampFromString : function (elementDate,elementHour) {
+
+			var isDateInfuture; 
+			var dateString = elementDate+' '+elementHour,
+    		dateTimeParts = dateString.split(' '),
+    		timeParts = dateTimeParts[1].split(':'),
+   			dateParts = dateTimeParts[0].split('/'),
+    		date;
+
+			date = new Date(dateParts[2], parseInt(dateParts[1], 10) - 1, dateParts[0], timeParts[0], timeParts[1]);
+
+			// console.log(date.getTime()); //1379426880000
+			// console.log(date); //Tue Sep 17 2013 10:08:00 GMT-0400
+			// console.log(FBZ.model.date.now());
+
+
+			// console.log(isDateInfuture);
+
+			return date;
+		}, 
+
+		compareDate : function (elementDate,elementHour) {
+
+			var isDateInfuture; 
+			var dateString = elementDate+' '+elementHour,
+    		dateTimeParts = dateString.split(' '),
+    		timeParts = dateTimeParts[1].split(':'),
+   			dateParts = dateTimeParts[0].split('/'),
+    		date,currentDate;
+
+			date = new Date(dateParts[2], parseInt(dateParts[1], 10) - 1, dateParts[0], timeParts[0], timeParts[1]);
+			currentDate = FBZ.model.date.getTime();
+
+			// console.log(date.getTime()); //1379426880000
+			// console.log(date); //Tue Sep 17 2013 10:08:00 GMT-0400
+			// console.log(FBZ.model.date.now());
+
+			if(date.getTime() < currentDate ) {
+				isDateInfuture = true;
+			}else {
+				isDateInfuture = false;
+			}
+
+			// console.log(isDateInfuture);
+
+			return isDateInfuture;
+		}, 
+
 		createCartelera: function () {
 
 			FBZ.model.centralContainer = ""; 
 
-			FBZ.model.dropdown = 
-			"<div class='dropdown-container'>"+
-				"<div class='dropdown'>"+
-								"<button onclick='FBZ.control.activateCarteleraDropdown()' class='dropbtn'>"+FBZ.control.getMonthString(FBZ.model.date.getMonth())+"</button>"+
-								"<div id='dropdown-cartelera' class='dropdown-content'>"+
-									"<a href='"+FBZ.control.displayMovies(FBZ.model.date.getMonth()+1)+"'>"+FBZ.control.getMonthString(FBZ.model.date.getMonth()+1)+"</a>"+
-									"<a href='"+FBZ.control.displayMovies(FBZ.model.date.getMonth()+2)+"'>"+FBZ.control.getMonthString(FBZ.model.date.getMonth()+2)+"</a>"+
-									"<a href='"+FBZ.control.displayMovies(FBZ.model.date.getMonth()+3)+"'>"+FBZ.control.getMonthString(FBZ.model.date.getMonth()+3)+"</a>"+
-								"</div>"+
-							"</div>"+
-						"</div>";
+			// FBZ.model.dropdown = 
+			// "<div class='dropdown-container'>"+
+			// 	"<div class='dropdown'>"+
+			// 					"<button onclick='FBZ.control.activateCarteleraDropdown()' class='dropbtn'>"+FBZ.control.getMonthString(FBZ.model.date.getMonth())+"</button>"+
+			// 					"<div id='dropdown-cartelera' class='dropdown-content'>"+
+			// 						"<a href='"+FBZ.control.displayMovies(FBZ.model.date.getMonth()+1)+"'>"+FBZ.control.getMonthString(FBZ.model.date.getMonth()+1)+"</a>"+
+			// 						"<a href='"+FBZ.control.displayMovies(FBZ.model.date.getMonth()+2)+"'>"+FBZ.control.getMonthString(FBZ.model.date.getMonth()+2)+"</a>"+
+			// 						"<a href='"+FBZ.control.displayMovies(FBZ.model.date.getMonth()+3)+"'>"+FBZ.control.getMonthString(FBZ.model.date.getMonth()+3)+"</a>"+
+			// 					"</div>"+
+			// 				"</div>"+
+			// 			"</div>";
 
-			FBZ.view.$centralContainer.append(FBZ.model.dropdown);
-
-
+			// FBZ.view.$centralContainer.append(FBZ.model.dropdown);
 			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
 			for ( var i = 0 ; i < FBZ.model.noBrain.cartelera.elements.length ; i ++ ) { 
 //				
@@ -195,36 +270,55 @@
 				
     				// key: the name of the object key
 				// console.log(key,index);
-				if(FBZ.model.noBrain.cartelera.elements[i].Privacidad != "PRIVADO") {  
+				if(FBZ.model.noBrain.cartelera.elements[i].Privacidad != "PRIVADO" && FBZ.control.compareDate(FBZ.model.noBrain.cartelera.elements[i].Fecha, FBZ.model.noBrain.cartelera.elements[i].Hora)) {  
+	
+				var currentDate   =  FBZ.control.getTimeStampFromString(FBZ.model.noBrain.cartelera.elements[i].Fecha,FBZ.model.noBrain.cartelera.elements[i].Hora);
+
+				var stringDay 	  = FBZ.model.days[currentDate.getDay()];
+				var numberDay  	  = currentDate.getDate();
+				var stringMonth   =  FBZ.model.months[currentDate.getMonth()];; 
 				
 				FBZ.model.centralContainer += 
 
 					"<div class='cartelera-block'>"+
-				 		"<picture class='cartelera-imagen'>"+
-							"<source srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_S+"' media='(max-width: 320px)'/>"+
-							"<source srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_M+"' media='(max-width: 650px)'/>"+
-							"<source srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_L+"' media='(max-width: 900px)'/>"+
-							"<img srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_M+"' alt='"+FBZ.model.noBrain.cartelera.elements[i].Titulo+"-imagen'/>"+
-						"</picture>"+
-						"<h2 class='cartelera-titulo '>"+FBZ.model.noBrain.cartelera.elements[i].Titulo+"</h2>"+
-						"<p class='cartelera-ano line_after'>"+FBZ.model.noBrain.cartelera.elements[i].Ano+"  </p>"+
-						"<h3 class='cartelera-director line_after'> "+FBZ.model.noBrain.cartelera.elements[i].Director+"  </h3>"+
-						"<p class='cartelera-pais'>"+FBZ.model.noBrain.cartelera.elements[i].Pais+"</p>"+
-						"<br>"+
-						"<p class='cartelera-fecha line_after'>"+FBZ.model.noBrain.cartelera.elements[i].Fecha+"  </p>"+
-						"<p class='cartelera-hora'>"+FBZ.model.noBrain.cartelera.elements[i].Hora+"</p>"+
-						"<p class='cartelera-duracion'>"+FBZ.model.noBrain.cartelera.elements[i].Duracion+"</p>"+
-						"<p class='cartelera-sinopsis'>"+FBZ.model.noBrain.cartelera.elements[i].Sinopsis+"</p>"+
-						"<p class='cartelera-invitado'>"+FBZ.model.noBrain.cartelera.elements[i].Invitado+"</p>"+
+						"<div class='cartelera-imagen-container'>"+
+				 			"<picture class='cartelera-imagen'>"+
+								"<source srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_S+"' media='(max-width: 320px)'/>"+
+								"<source srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_M+"' media='(max-width: 650px)'/>"+
+								"<source srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_L+"' media='(max-width: 900px)'/>"+
+								"<img srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_M+"' alt='"+FBZ.model.noBrain.cartelera.elements[i].Titulo+"-imagen'/>"+
+							"</picture>"+
+						"</div>"+
+
+						"<div class='info-box'>"+
+							"<div class='date-info-box'>"+
+								"<p class='cartelera-fecha'>"+stringDay+" "+numberDay+"</p>"+
+								"<p class='cartelera-fecha'>"+stringMonth+"</p>"+
+								"<p class='cartelera-hora'>"+FBZ.model.noBrain.cartelera.elements[i].Hora+"</p>"+
+							"</div>"+
+							"<div class='movie-info-box'>"+
+								"<p class='cartelera-titulo'>"+FBZ.model.noBrain.cartelera.elements[i].Titulo+"</p>"+
+								"<p class='cartelera-director'> "+FBZ.model.noBrain.cartelera.elements[i].Director+" / "
+								+FBZ.model.noBrain.cartelera.elements[i].Pais+" / "
+								+FBZ.model.noBrain.cartelera.elements[i].Duracion+"' / "
+								+FBZ.model.noBrain.cartelera.elements[i].Ano+"</p>"+
+							"</div>"+
+							"<div class='guest-info-box'>"+
+								"<p class='cartelera-invitado'>"+FBZ.model.noBrain.cartelera.elements[i].Invitado+"</p>"+
+							"</div>"+
+						"</div>"+
+							"<div class='sinopsis-info-box'>"+
+								"<p class='cartelera-sinopsis'>"+FBZ.model.noBrain.cartelera.elements[i].Sinopsis+"</p>"+
+							"</div>"+
 					"</div>";
 				}
 			}
 
-			FBZ.view.$centralContainer.append(FBZ.model.centralContainer);
+			FBZ.view.$centralContainer.append(FBZ.model.centralContainer );
 
 		},
 
-		createEventos: function () {
+		createCuadernoK: function () {
 
 			FBZ.model.centralContainer = ""; 
 
@@ -389,11 +483,11 @@
 
 	},
 
-		createNosotros: function () {
+		createFundacionKine: function () {
 
 			FBZ.model.centralContainer = ""; 
 			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
-    		for ( var i = 0 ; i < FBZ.model.noBrain.nosotros.elements.length ; i ++ ) { 
+    		for ( var i = 0 ; i < FBZ.model.noBrain.fundacion_Kine.elements.length ; i ++ ) { 
 //				
 				// console.log(FBZ.model.noBrain.cartelera.elements[i]);
 				
@@ -401,10 +495,10 @@
 				// console.log(key,index);
 				FBZ.model.centralContainer += 
 
-					"<div class='nosotros-block'>"+
-					"<h2 class='nosotros-titulo'>"+FBZ.model.noBrain.nosotros.elements[i].Titulo+"</h2>"+
-						"<p class='nosotros-descripcion'>"+FBZ.model.noBrain.nosotros.elements[i].Descripcion+"</p>"+
-						"<div class='nosotros-logos'></div>"+
+					"<div class='fundacion-kine-block'>"+
+					"<h2 class='fundacion-kine-titulo'>"+FBZ.model.noBrain.fundacion_Kine.elements[i].Titulo+"</h2>"+
+						"<p class='fundacion-kine-descripcion'>"+FBZ.model.noBrain.fundacion_Kine.elements[i].Descripcion+"</p>"+
+						"<div class='fundacion-kine-logos'></div>"+
 					"</div>";
 				}
 
@@ -474,6 +568,16 @@
 			return FBZ.model.months[index];
 		},
 
+		activateCarteleraExpansion : function  () {
+
+			FBZ.view.CarteleraBlocks = $(".cartelera-block");
+			FBZ.view.CarteleraBlocks.on("click",FBZ.control.onClickCarteleraBlock);
+
+		},
+		onClickCarteleraBlock : function (e) {
+			$(e.currentTarget).find('.sinopsis-info-box').toggleClass("active");
+		},
+
 		activateCarteleraDropdown : function  () {
 
 			FBZ.view.dropdownCartelera	= document.getElementById("dropdown-cartelera");
@@ -498,6 +602,7 @@
 
 		getTime : function () {
 
+				FBZ.model.day = FBZ.model.days[FBZ.model.date.getDay()];
 				// getDate()	Get the day as a number (1-31)
 				// getDay()	Get the weekday as a number (0-6)
 				// getFullYear()	Get the four digit year (yyyy)
@@ -508,6 +613,7 @@
 				// getSeconds()	Get the seconds (0-59)
 				// getTime()	Get the time (milliseconds since January 1, 1970)
 				console.log(FBZ.model.date.getDate());
+				console.log(FBZ.model.date.getTime());
 		},
 
 
@@ -761,7 +867,9 @@
 
 		populateCentralContainer :  function () { 
 
-			FBZ.control.createCartelera();
+
+			FBZ.control.displayCartelera();
+			// FBZ.control.createCartelera();
 		
 			// FBZ.control.activateCarteleraDropdown();
 
