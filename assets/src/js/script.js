@@ -323,28 +323,38 @@
 			FBZ.model.centralContainer = ""; 
 
 			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
-    		for ( var i = 0 ; i < FBZ.model.noBrain.eventos.elements.length ; i ++ ) { 
+			for ( var i = 0 ; i < FBZ.model.noBrain.cuadernoK.elements.length ; i ++ ) { 
 //				
 				// console.log(FBZ.model.noBrain.cartelera.elements[i]);
-				
-    				// key: the name of the object key
+					// key: the name of the object key
 				// console.log(key,index);
-				if(FBZ.model.noBrain.cartelera.elements[i].Privacidad != "PRIVADO") {  
-				
+				if(FBZ.model.noBrain.cuadernoK.elements[i].Privacidad != "PRIVADO") {  
+
+
+				var currentDate   =  FBZ.control.getTimeStampFromString(FBZ.model.noBrain.cuadernoK.elements[i].Fecha,"15:30");
+
+				var numberDay 	  = currentDate.getDay();
+				var numberYear  	  = currentDate.getFullYear();
+				var stringMonth   =  FBZ.model.months[currentDate.getMonth()];; 
 
 				FBZ.model.centralContainer += 
 
-					"<div class='eventos-block-big'>"+
-				 		"<picture class='eventos-imagen'>"+
-							"<source srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_S+"' media='(max-width: 320px)'/>"+
-							"<source srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_M+"' media='(max-width: 650px)'/>"+
-							"<source srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_L+"' media='(max-width: 900px)'/>"+
-							"<img srcset='"+FBZ.model.noBrain.eventos.elements[i].Imagen_M+"' alt='"+FBZ.model.noBrain.eventos.elements[i].Titulo+"-imagen'/>"+
-						"</picture>"+
-						"<h2 class='eventos-titulo'>"+FBZ.model.noBrain.eventos.elements[i].Nombre+"</h2>"+
-						"<h3 class='eventos-fecha'>"+FBZ.model.noBrain.eventos.elements[i].Fecha+"</h3>"+
-						"<p class='eventos-hora'>"+FBZ.model.noBrain.eventos.elements[i].Hora+"</p>"+
-						"<p class='eventos-descripcion-larga'>"+FBZ.model.noBrain.eventos.elements[i].Descripcion_larga+"</p>"+
+					"<div class='cuaderno-k-block'>"+
+						"<div class='cuaderno-k-imagen-container'>"+
+							"<picture class='cuaderno-k-imagen'>"+
+								"<source srcset='"+FBZ.model.noBrain.cuadernoK.elements[i].Imagen_S+"' media='(max-width: 320px)'/>"+
+								"<source srcset='"+FBZ.model.noBrain.cuadernoK.elements[i].Imagen_M+"' media='(max-width: 650px)'/>"+
+								"<source srcset='"+FBZ.model.noBrain.cuadernoK.elements[i].Imagen_L+"' media='(max-width: 900px)'/>"+
+								"<img srcset='"+FBZ.model.noBrain.cuadernoK.elements[i].Imagen_M+"' alt='"+FBZ.model.noBrain.cuadernoK.elements[i].Titulo+"-imagen'/>"+
+							"</picture>"+
+						"</div>"+
+						"<div class='cuaderno-k-texto-container'>"+
+							"<h2 class='cuadernoK-titulo'>"+FBZ.model.noBrain.cuadernoK.elements[i].Nombre+"</h2>"+
+							"<h3 class='cuadernoK-fecha'>"+numberDay+" "+stringMonth+" "+numberYear+"</h3>"+
+						"</div>"+
+						"<div class='cuaderno-k-descripcion-container'>"+
+							"<p class='cuadernoK-descripcion'>"+FBZ.model.noBrain.cuadernoK.elements[i].Descripcion_larga+"</p>"+
+						"</div>"+
 					"</div>";
 				}
 			}
@@ -579,6 +589,7 @@
 		onClickCarteleraBlock : function (e) {
 			console.log($(e.currentTarget).find('.sinopsis-info-box'));
 			$(e.currentTarget).find('.sinopsis-info-box').toggleClass("active");
+			$(e.currentTarget).find('.cartelera-imagen-container').toggleClass("active");
 		},
 
 		activateCarteleraDropdown : function  () {

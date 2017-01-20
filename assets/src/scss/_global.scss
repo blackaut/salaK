@@ -1,4 +1,5 @@
 
+
 // for responsive stuff use as it follows
 
 // @include respond-min($bp-narrow) {
@@ -14,9 +15,89 @@
 // $bp-mid               : 768;  // Set in px
 // $bp-wide              : 992;  // Set in px
 // $bp-huge              : 1600; // Set in px
+
+// cuaderno k
+.cuaderno-k-texto-container {
+
+
+	display:flex;
+	flex-direction:row;
+	width:100%;
+	
+	flex-shrink: 0;
+	margin-right:0;
+	white-space: normal;
+
+	// border-bottom:3px solid white;
+	flex-wrap: nowrap;
+	justify-content:flex-start;
+	width:100%;
+	padding:10px;
+	padding-left:50px;
+
+	justify-content:space-around;
+
+
+	.cuadernoK-titulo {
+		align-self: center;
+		flex-grow: 2;
+
+	}
+	.cuadernoK-fecha {
+		float: right;
+		text-transform:uppercase;
+		align-self: center;
+		font-size: 1.5em;
+
+
+	}
+
+
+
+}
+
+.cuaderno-k-descripcion-container {
+
+	.cuadernoK-descripcion {
+		padding-left:50px;
+		padding-bottom:50px;
+	}
+}
+
+.cuaderno-k-block {
+	transition: .5s all;
+	margin-right: 10vw;
+	overflow:hidden;
+	cursor:pointer;
+	background:rgba(255,255,255,0);
+}
+
+
+.cuaderno-k-imagen-container {
+
+	transition: 1s all ease-in-out;
+	max-height:40vh;
+	height:auto;
+	border-top:3px solid white;
+	overflow:hidden;
+
+	.cuaderno-k-imagen {
+		img {
+				width: 100%;
+				transform: translateY(-25%);
+				transition: 1.2s all ease-in;
+			}
+		}
+}
+
+
+
 p {
 	margin-bottom:0;
 }
+
+
+// cartelera
 
 .cartelera-block {
 	transition: .5s all;
@@ -27,16 +108,36 @@ p {
 }
 
 .cartelera-imagen-container {
-
-	height:30vh;
+	transition: 1s all ease-in-out;
+	max-height:30vh;
+	height:auto;
 	border-bottom:3px solid white;
 	border-top:3px solid white;
 	overflow:hidden;
+	.cartelera-imagen {
+		img {
+				width: 100%;
+				transform: translateY(-25%);
+				transition: 1.2s all ease-in;
+			}
+		}
+	&.active {
+		max-height: 100vh;
+		.cartelera-imagen {
+			img {
 
+				transition: 0.3s all ease-out;
+				transform: translateY(0%);
+			}
+		}
+	}
 }
 
 picture  {
 	z-index:0;
+	img {
+	margin-bottom: -5px;
+	}
 }
 
 .info-box {
@@ -80,7 +181,7 @@ picture  {
 }
 .guest-info-box {
 
-overflow: auto;
+	overflow: auto;
 	padding:20px;
 	// flex-grow:2;
 	// // text-align:center;
@@ -97,7 +198,7 @@ overflow: auto;
 	// text-align:center;
 	height: 0 ;
 	opacity:0;
-	transition: .5s all;
+	transition: 1s all ease-in-out;
 	padding: 0 30px 0px 30px;
 	transform-origin:0%;
 	p {
@@ -191,32 +292,6 @@ overflow: auto;
 	padding-right:5px;
 }
 
-.cartelera-titulo {}
-.cartelera-ano {
-	// display:inline-block;
-}
-.cartelera-director {
-		// display:inline-block;
-	
-}
-.cartelera-duracion {
-			// display:block;
-
-}
-.cartelera-pais {
-			// display:inline-block;
-
-}
-.cartelera-fecha { 	
-	// display:inline-block;
-}
-.cartelera-hora {
-		// display:inline-block;
-}
-.cartelera-sinopsis {
-	// display:none;
-}
-.cartelera-invitado {}
 
 // headings
 
