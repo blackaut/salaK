@@ -105,8 +105,8 @@
 			// split it per value so we can work with it 
 			var pathArray = window.location.hash.split( '/' );
 
-			console.log("the URL : ",currentURL, pathArray , pathArray[0], pathArray[1] );
-			console.dir(pathArray);
+		//	console.log("the URL : ",currentURL, pathArray , pathArray[0], pathArray[1] );
+		//	console.dir(pathArray);
 			
 			
 			if(pathArray.length >= 3 ) { 
@@ -117,8 +117,8 @@
 
 			if(currentURL !== "" && currentURL !== "#!/home") { 
 
-				console.log("not initial section");
-				console.log("currentURL :",currentURL);
+			//	console.log("not initial section");
+			//	console.log("currentURL :",currentURL);
 				FBZ.control.displayCategory(currentURL);
 
 			}
@@ -155,11 +155,8 @@
 
 			if(e.currentTarget) {
 				FBZ.model.currentSection = e.currentTarget.hash;
-				console.log("e.current existe");
 			}else {
 				FBZ.model.currentSection = e;
-				console.log("string display");
-
 			}
 			// e.preventDefault();
 			FBZ.control.hideSections();
@@ -189,7 +186,7 @@
 
 			FBZ.view.$btnMenu.removeClass("active");
 			FBZ.view.$siteMenu.find("."+sectionString).addClass("active");
-			console.log("section string :", FBZ.view.$siteMenu.find(sectionString))
+			// console.log("section string :", FBZ.view.$siteMenu.find(sectionString))
 
 		},
 
@@ -206,7 +203,7 @@
 		displayCartelera : function () {
 
 			FBZ.control.createCartelera();
-			console.log("displayCartelera");
+			// console.log("displayCartelera");
 			FBZ.control.activateCurrentSection("cartelera");
 			FBZ.control.injectTopTitle("Cartelera");
 			FBZ.control.activateCarteleraExpansion();
@@ -216,7 +213,7 @@
 
 		displayCuadernoK : function () {
 
-			console.log("displayCuadernoK");
+			// console.log("displayCuadernoK");
 			FBZ.control.createCuadernoK();
 			FBZ.control.activateCurrentSection("cuadernoK");
 			FBZ.control.injectTopTitle("Cuaderno K");
@@ -225,7 +222,7 @@
 
 		displaySalaK : function () {
 
-			console.log("displaySalaK");
+			// console.log("displaySalaK");
 			FBZ.control.createSalaK();
 			FBZ.control.activateCurrentSection("salaK");
 			FBZ.control.injectTopTitle("Sala K");
@@ -234,7 +231,7 @@
 
 		displayFundacionKine : function () {
 
-			console.log("displayFundacionKine");
+			// console.log("displayFundacionKine");
 			FBZ.control.createFundacionKine();
 			FBZ.control.activateCurrentSection("fundacionKine");
 			//FBZ.control.injectTopTitle("Fundacion Kine");
@@ -243,7 +240,7 @@
 
 		displayContacto : function () {
 
-			console.log("displayContacto");
+			// console.log("displayContacto");
 			FBZ.control.createContacto();
 			FBZ.control.activateCurrentSection("contacto");
 			FBZ.control.injectTopTitle("Contacto");
@@ -340,9 +337,9 @@
 					"<div class='cartelera-block'>"+
 						"<div class='cartelera-imagen-container'>"+
 				 			"<picture class='cartelera-imagen'>"+
-								"<source srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_S+"' media='(max-width: 320px)'/>"+
-								"<source srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_M+"' media='(max-width: 650px)'/>"+
-								"<source srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_L+"' media='(max-width: 900px)'/>"+
+								"<source srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_S+"' media='(max-width: 500px)'/>"+
+								"<source srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_M+"' media='(max-width: 1000px)'/>"+
+								"<source srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_L+"' media='(max-width: 1500px)'/>"+
 								"<img srcset='"+FBZ.model.noBrain.cartelera.elements[i].Imagen_M+"' alt='"+FBZ.model.noBrain.cartelera.elements[i].Titulo+"-imagen'/>"+
 							"</picture>"+
 						"</div>"+
@@ -399,9 +396,9 @@
 					"<div class='cuaderno-k-block'>"+
 						"<div class='cuaderno-k-imagen-container'>"+
 							"<picture class='cuaderno-k-imagen'>"+
-								"<source srcset='"+FBZ.model.noBrain.cuadernoK.elements[i].Imagen_S+"' media='(max-width: 320px)'/>"+
-								"<source srcset='"+FBZ.model.noBrain.cuadernoK.elements[i].Imagen_M+"' media='(max-width: 650px)'/>"+
-								"<source srcset='"+FBZ.model.noBrain.cuadernoK.elements[i].Imagen_L+"' media='(max-width: 900px)'/>"+
+								"<source srcset='"+FBZ.model.noBrain.cuadernoK.elements[i].Imagen_S+"' media='(max-width: 500px)'/>"+
+								"<source srcset='"+FBZ.model.noBrain.cuadernoK.elements[i].Imagen_M+"' media='(max-width: 1000px)'/>"+
+								"<source srcset='"+FBZ.model.noBrain.cuadernoK.elements[i].Imagen_L+"' media='(max-width: 1500px)'/>"+
 								"<img srcset='"+FBZ.model.noBrain.cuadernoK.elements[i].Imagen_M+"' alt='"+FBZ.model.noBrain.cuadernoK.elements[i].Titulo+"-imagen'/>"+
 							"</picture>"+
 						"</div>"+
@@ -460,14 +457,14 @@
 			for ( var i = 0 ; i < FBZ.model.noBrain.slideshow_salaK.elements.length ; i ++ ) { 
 //				
 				FBZ.model.slideshow += "<picture class='slideshow-imagen'>"+
-							"<source srcset='"+FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_S+"' media='(max-width: 320px)'/>"+
-							"<source srcset='"+FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_M+"' media='(max-width: 650px)'/>"+
-							"<source srcset='"+FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_L+"' media='(max-width: 900px)'/>"+
+							"<source srcset='"+FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_S+"' media='(max-width: 500px)'/>"+
+							"<source srcset='"+FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_M+"' media='(max-width: 1000px)'/>"+
+							"<source srcset='"+FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_L+"' media='(max-width: 1500px)'/>"+
 							"<img srcset='"+FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_M+"' alt='"+FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_descripcion+"-imagen'/>"+
 						"</picture>";
 
 				FBZ.model.slideshowDescription.push(FBZ.model.noBrain.slideshow_salaK.elements[i].Imagen_descripcion);
-				
+
 				FBZ.model.slideshowControl += "<div class='slider-dot'></div>";
 			}
 
@@ -507,7 +504,8 @@
 		createSliderControl : function () {
 			//FBZ.slider.currentImage = 0;
 			FBZ.model.totalImage  = FBZ.view.sliderControl.children().length-1;
-			console.log("	FBZ.slider.totalImage ",	FBZ.model.totalImage );
+			console.log("	FBZ.slider.totalImage :",	FBZ.model.totalImage );
+
 			$(".slider-dot").on("click",FBZ.control.onDotClick);
 			FBZ.control.changeImageToIndex(FBZ.model.currentImage);
 			FBZ.control.createInterval();
@@ -533,7 +531,7 @@
 
 			FBZ.view.salaKSlideshow.children().removeClass("active");
 			FBZ.view.sliderControl.children().removeClass('active');
-			$(FBZ.view.salaKSlideshow.children().get(index)).addClass('active');
+			$(FBZ.view.salaKSlideshow.children().get(index+1)).addClass('active');
 			$(FBZ.view.sliderControl.children().get(index)).addClass('active');
 
 		},

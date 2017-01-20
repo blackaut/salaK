@@ -526,8 +526,14 @@ body, html {
 
 .slideshow-imagen {
 	position:absolute;
-	top:0;
+	top:0;	
 	display:none;
+	opacity:0;
+	&.active {
+		display:block;
+		opacity: 1;
+
+	}
 
 }
 
