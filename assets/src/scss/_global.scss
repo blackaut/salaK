@@ -19,9 +19,11 @@ p {
 }
 
 .cartelera-block {
-
+	transition: .5s all;
 	margin-right: 10vw;
 	overflow:hidden;
+	cursor:pointer;
+	background:rgba(255,255,255,0);
 }
 
 .cartelera-imagen-container {
@@ -83,20 +85,33 @@ overflow: auto;
 	// flex-grow:2;
 	// // text-align:center;
 	// // height:auto;
-	 display:flex;
+	display:flex;
 	flex-direction:row;
 	// justify-content:flex-end;
- //    align-self: center;
+	align-self: center;
 }
 
 .sinopsis-info-box {
+
 	width: 100%;
-	text-align:center;
+	// text-align:center;
 	height: 0 ;
 	opacity:0;
-	.active {
+	transition: .5s all;
+	padding: 0 30px 0px 30px;
+	transform-origin:0%;
+	p {
+			transform: translateY(100%);
+	}
+
+	&.active {
+		border-top: 3px solid white;
+		padding: 30px;
 		height: auto;
 		opacity:1;
+		p {
+			transform: translateY(0);
+		}
 	}
 }
 // section title 
@@ -158,7 +173,16 @@ overflow: auto;
 	margin-left: 5vw;
 	padding:5vw;
 	align-self:center;
+	transform: translateY(50%);
+	h2 {
+		font-size:1.6rem;
+	}
+}
+// contacto 
 
+.contacto-block {
+	margin-right: 10vw;
+	margin-left: 5vw;
 }
 
 //cartelera 

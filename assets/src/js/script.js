@@ -517,7 +517,7 @@
     				// key: the name of the object key
 				// console.log(key,index);
 			FBZ.model.centralContainer += 
-
+			"<div class='contacto-block'>"+
 				"<link href='//cdn-images.mailchimp.com/embedcode/classic-10_7.css' rel='stylesheet' type='text/css'>"+
 				"<style type='text/css'>"+
 				"#mc_embed_signup { background:transparent; clear:left; }"+
@@ -551,6 +551,7 @@
 				"</form>"+
 				"</div>"+
 				"<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>";
+			"</div>"+
 				// <!--End mc_embed_signup-->
 
 			FBZ.view.$centralContainer.append(FBZ.model.centralContainer);
@@ -571,10 +572,12 @@
 		activateCarteleraExpansion : function  () {
 
 			FBZ.view.CarteleraBlocks = $(".cartelera-block");
+			console.log("car",FBZ.view.CarteleraBlocks);
 			FBZ.view.CarteleraBlocks.on("click",FBZ.control.onClickCarteleraBlock);
 
 		},
 		onClickCarteleraBlock : function (e) {
+			console.log($(e.currentTarget).find('.sinopsis-info-box'));
 			$(e.currentTarget).find('.sinopsis-info-box').toggleClass("active");
 		},
 
@@ -826,7 +829,7 @@
 
 			FBZ.view.$leftContainer;
 
-			FBZ.model.currentAddress = "<a target='_blank' href='https://maps.google.com/?q=Condell 1307, Providencia&t=m'>"+
+			FBZ.model.currentAddress = "<a target='_blank' href='https://www.google.com/maps/place/Sala+K/@-33.4468032,-70.6282056,17z/data=!4m13!1m7!3m6!1s0x9662c57e98f6f6b5:0xee82689ba2896ef8!2sAv.+Condell+1307,+Providencia,+Regi%C3%B3n+Metropolitana,+Chile!3b1!8m2!3d-33.4468032!4d-70.6260169!3m4!1s0x9662c57e98f6f6cb:0xfbc685fe762e8d86!8m2!3d-33.4468032!4d-70.6260169'>"+
      									"<img class='icon-location' src='http://salak.cl/assets/img/location.svg'/>"+
        									FBZ.model.noBrain.contacto.elements[0].Direccion+
        									"</a>";
