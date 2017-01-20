@@ -16,6 +16,20 @@
 // $bp-wide              : 992;  // Set in px
 // $bp-huge              : 1600; // Set in px
 
+// salaK 
+.salaK-block {
+	transition: .5s all;
+	margin-right: 10vw;
+	overflow:hidden;
+	cursor:pointer;
+	background:rgba(255,255,255,0);
+}
+
+.salaK-descripcion {
+	padding:50px;
+}
+
+
 // cuaderno k
 .cuaderno-k-texto-container {
 
@@ -364,14 +378,16 @@ iframe {
 // sala K logos 
 
 .salak-logos {
-	display: inline-block;
-
-		width:100px;
+	display:flex;
+	justify-content:space-between;
+	 align-items:  baseline;
 
 }
 
 .logo-small {
 	width:100px;
+	padding:10px;
+	height:auto;
 }
 
 
@@ -462,9 +478,8 @@ body, html {
 	width:25vw;
 	// background:#666;
 	position:fixed;
-	padding: 10px;
 	display: flex;
-    flex-direction: column;
+	flex-direction: column;
 	z-index:2;
 	border-right: 3px solid white;
 	justify-content:flex-end;
@@ -504,6 +519,8 @@ body, html {
 .slideshow-imagen {
 	position:absolute;
 	top:0;
+	display:none;
+
 }
 
 .header-logo {
@@ -520,22 +537,27 @@ body, html {
 	cursor: pointer;
 	color:white!important;
 	font-size:1rem;
+	transition: all 1s;
+	border-top: 3px solid transparent;
 
 	&.active {
-		margin-top: 3px solid white;
+		border-top: 3px solid white;
+		&:hover {
+		border-top: 3px solid white;
+		}
 	}
 	&:hover {
-		margin-top: 3px solid white;
+		border-top: 3px solid rgba(255,255,255,0.5);
 	}
 
 }
 
 .site-menu {
+
 	flex-grow:2;
 	width:70%;
-	text-align:right;
+	text-align:left;
 	align-self: flex-end;
-
 }
 
 .subtitle-salak {
@@ -623,6 +645,7 @@ address {
 .loader:after {
   border-radius: 50%;
   top:50%;
+  display: none;
  }
 .loader:before,
 .loader:after {

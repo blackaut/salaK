@@ -88,13 +88,61 @@
 		// add function here
 		init : function () {
 			console.debug('SALA K is running');
+			FBZ.control.populateBackground();
 			FBZ.control.getTime();
 			FBZ.control.populateLeftContainer();
 			FBZ.control.populateCentralContainer();
 			// FBZ.control.populateRightContainer();
-			FBZ.control.populateBackground();
+
+
 
 		},
+
+			gotoCorrectURL: function () {
+
+			//check if the URL is home and if not go to it. 
+			var currentURL = window.location.hash;
+			// split it per value so we can work with it 
+			var pathArray = window.location.hash.split( '/' );
+
+			console.log("the URL : ",currentURL, pathArray , pathArray[0], pathArray[1] );
+			console.dir(pathArray);
+			
+			
+			if(pathArray.length >= 3 ) { 
+				currentURL  = pathArray[0] +"/"+ pathArray[1];		
+			}
+			// KO.Config.gotoSectionByURL(currentURL);
+
+
+			if(currentURL !== "" && currentURL !== "#!/home") { 
+
+				console.log("not initial section");
+				console.log("currentURL :",currentURL);
+				FBZ.control.displayCategory(currentURL);
+
+			}
+		},
+
+		gotoSectionByURL: function (currentURL) {
+
+			// find the section name match it with the exisitng ones and goes there.
+			var sectionURL = currentURL.replace(/^.*#!/,'');
+			var matchedNumber;
+				for(var i=0 ; i < KO.Config.$sectionsAmount ; i++ ) { 
+			//	console.log(KO.Config.$sections[i].currentArticleName, sectionURL);
+
+				if ("/"+KO.Config.$sections[i].currentArticleName == sectionURL ) {
+					KO.Config.currentSection = i;
+					matchedNumber = i;
+					KO.Config.moveContentByIndexVertically(matchedNumber);
+					break;
+					}
+				}
+				
+		},
+
+
 
 		activateMenu : function () {
 
@@ -103,8 +151,17 @@
 		},
 
 		displayCategory : function (e) {
+
+
+			if(e.currentTarget) {
+				FBZ.model.currentSection = e.currentTarget.hash;
+				console.log("e.current existe");
+			}else {
+				FBZ.model.currentSection = e;
+				console.log("string display");
+
+			}
 			// e.preventDefault();
-			FBZ.model.currentSection = e.currentTarget.hash;
 			FBZ.control.hideSections();
 			FBZ.control.fadeShow(FBZ.view.$centralContainer);
 
@@ -131,7 +188,7 @@
 		activateCurrentSection : function (sectionString) {
 
 			FBZ.view.$btnMenu.removeClass("active");
-			FBZ.view.$siteMenu.find(sectionString).addClass("active");
+			FBZ.view.$siteMenu.find("."+sectionString).addClass("active");
 			console.log("section string :", FBZ.view.$siteMenu.find(sectionString))
 
 		},
@@ -179,7 +236,7 @@
 
 			console.log("displayFundacionKine");
 			FBZ.control.createFundacionKine();
-			FBZ.control.activateCurrentSection("fundacion_Kine");
+			FBZ.control.activateCurrentSection("fundacionKine");
 			//FBZ.control.injectTopTitle("Fundacion Kine");
 
 		},
@@ -375,10 +432,11 @@
 				// console.log(key,index);
 				FBZ.model.centralContainer += 
 
-					"<div class='salak-block'>"+
-				 		"<div class='salaK-slideshow'></div>"+
-					"<h2 class='salaK-titulo'>"+FBZ.model.noBrain.salaK.elements[i].Titulo+"</h2>"+
+					"<div class='salaK-block'>"+
 						"<p class='salaK-descripcion'>"+FBZ.model.noBrain.salaK.elements[i].Descripcion+"</p>"+
+						"<div class='salaK-slideshow-container'>"+
+							"<div class='salaK-slideshow'></div>"+
+						"</div>"+
 						"<div class='salaK-logos'></div>"+
 					"</div>";
 				}
@@ -424,7 +482,7 @@
 
 			for ( var i = 0 ; i < FBZ.model.noBrain.logos.elements.length ; i ++ ) { 
 //				
-				FBZ.model.logos += "<a class='salak-logos' target='_blank' href='"+FBZ.model.noBrain.logos.elements[i].Link+"'>"+
+				FBZ.model.logos += "<a class='salak-logo' target='_blank' href='"+FBZ.model.noBrain.logos.elements[i].Link+"'>"+
 										"<img class='logo-small' src="+FBZ.model.noBrain.logos.elements[i].Logo+" alt="+FBZ.model.noBrain.logos.elements[i].Titulo+">"+
 									"</a>";
 			}
@@ -440,7 +498,7 @@
 		{
 	//			console.log("interval");
 				FBZ.control.playSlider();
-        }, FBZ.model.time);
+       		}, FBZ.model.time);
 		}, 
 
 		deleteInterval : function () { 
@@ -482,7 +540,7 @@
 
 		playSlider: function () { 
 
-			console.log(FBZ.model.currentImage, FBZ.model.totalImage);
+			// console.log(FBZ.model.currentImage, FBZ.model.totalImage);
 			if(FBZ.model.currentImage < FBZ.model.totalImage) { 
 				FBZ.model.currentImage ++;
 			}else { 
@@ -575,19 +633,19 @@
 			if(index > 11 ) {
 				index -=12;
 			}
-			console.log(index, FBZ.model.months[index]);
+			// console.log(index, FBZ.model.months[index]);
 			return FBZ.model.months[index];
 		},
 
 		activateCarteleraExpansion : function  () {
 
 			FBZ.view.CarteleraBlocks = $(".cartelera-block");
-			console.log("car",FBZ.view.CarteleraBlocks);
+			// console.log("car",FBZ.view.CarteleraBlocks);
 			FBZ.view.CarteleraBlocks.on("click",FBZ.control.onClickCarteleraBlock);
 
 		},
 		onClickCarteleraBlock : function (e) {
-			console.log($(e.currentTarget).find('.sinopsis-info-box'));
+			// console.log($(e.currentTarget).find('.sinopsis-info-box'));
 			$(e.currentTarget).find('.sinopsis-info-box').toggleClass("active");
 			$(e.currentTarget).find('.cartelera-imagen-container').toggleClass("active");
 		},
@@ -626,14 +684,14 @@
 				// getMonth()	Get the month (0-11)
 				// getSeconds()	Get the seconds (0-59)
 				// getTime()	Get the time (milliseconds since January 1, 1970)
-				console.log(FBZ.model.date.getDate());
-				console.log(FBZ.model.date.getTime());
+				// console.log(FBZ.model.date.getDate());
+				// console.log(FBZ.model.date.getTime());
 		},
 
 
 		detectPlatform : function () {
 
-			console.log("js platform detection : ");
+			// console.log("js platform detection : ");
 			if(FBZ.model.stageW < FBZ.model.swapToMobileBreakpoint) {
 
 				console.log("mobile");
@@ -753,7 +811,7 @@
 
 			Tabletop.init( { key: 'https://docs.google.com/spreadsheets/d/1s7zqcKC7JnDC2gs0vhCyeJQXgyzTzbUhl-e8ED59xFU/pubhtml',
 				callback: function(data, tabletop) { 
-					console.dir(data) 
+					// console.dir(data) 
 					FBZ.model.noBrain = data;
 					FBZ.control.parseBrain();
 				} } )
@@ -881,8 +939,8 @@
 
 		populateCentralContainer :  function () { 
 
-
-			FBZ.control.displayCartelera();
+			FBZ.control.gotoCorrectURL();
+			// FBZ.control.displayCartelera();
 			// FBZ.control.createCartelera();
 		
 			// FBZ.control.activateCarteleraDropdown();
