@@ -258,7 +258,6 @@ picture  {
 
 .date-info-box {
 	white-space: nowrap;
-	border-right:2px solid white;
 	height:100%;
 	display:flex;
 	flex-direction:column;
@@ -266,10 +265,11 @@ picture  {
 	padding:20px;
 	// line-height:0.9rem;
 	margin-bottom:0;
-
 }
+
 .movie-info-box {
 
+	border-left:2px solid white;
 	height:100%;
 	padding:20px;
 	width:auto;
@@ -277,8 +277,20 @@ picture  {
 	display:flex;
 	flex-direction:column;
 	justify-content:center;
-	flex-wrap: nowrap;
-	white-space: nowrap;
+	flex-wrap: wrap;
+	white-space: wrap;
+
+	@include respond-min($bp-narrow) {
+		flex-wrap: wrap;
+	}
+	@include respond-min($bp-mid) {
+		flex-wrap: nowrap;
+	}
+	@include respond-min($bp-wide) {
+	}
+	@include respond-min($bp-huge) {
+	}
+
 }
 .guest-info-box {
 
@@ -691,20 +703,38 @@ body, html {
 /// header 
 .salaK-slideshow {
 	overflow:hidden;
-	height:40vh;
+	height:30vh;
 	width:100%;
 	position:relative;
+
+
+	@include respond-min($bp-narrow) {
+		
+	}
+	@include respond-min($bp-mid) {
+
+		height:30vh;
+
+	}
+	@include respond-min($bp-wide) {
+		height:40vh;
+	 }
+	@include respond-min($bp-huge) {
+	 }
+
 
 }
 
 .slideshow-imagen {
 	position:absolute;
 	top:0;	
-	display:none;
+	visibility:hidden;
 	opacity:0;
+	transition:1s all;
 	&.active {
 		display:block;
 		opacity: 1;
+		visibility:visible;
 
 	}
 
