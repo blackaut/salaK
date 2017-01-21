@@ -115,12 +115,15 @@
 			// KO.Config.gotoSectionByURL(currentURL);
 
 
-			if(currentURL !== "" && currentURL !== "#!/home") { 
+			if(currentURL !== "") { 
 
 			//	console.log("not initial section");
 			//	console.log("currentURL :",currentURL);
 				FBZ.control.displayCategory(currentURL);
 
+			} else {
+
+				FBZ.control.displayCategory("#cartelera");
 			}
 		},
 
@@ -757,7 +760,7 @@
 
 			var section = window.location.href.split("/");
 
-			// console.log("section length :",section.length);
+			 console.log("section length :",section.length);
 
 			if ( section.length <= 4 ) {
 
@@ -768,14 +771,9 @@
 			}
 
 			FBZ.model.currentArticule  = section[section.length-1];
-			//console.log(FBZ.model.currentSection);
+			console.log(FBZ.model.currentSection);
 		}, 
 
-		sectionMonitor : function (index) { 
-
-			FBZ.control.determineSection();
-			FBZ.model.currentSectionIndex = index;
-		},
 
 		animate : function (element,animClass) {
 

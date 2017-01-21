@@ -187,7 +187,7 @@ p {
 	overflow:hidden;
 	cursor:pointer;
 	background:rgba(255,255,255,0);
-	margin-right: 8px;
+	margin-right: 0;
 	@include respond-min($bp-mid) {
 		margin-right: 10vw;
 	}
@@ -195,11 +195,25 @@ p {
 
 .cartelera-imagen-container {
 	transition: 1s all ease-in-out;
-	max-height:30vh;
+	max-height:20vh;
 	height:auto;
 	border-bottom:3px solid white;
 	border-top:3px solid white;
 	overflow:hidden;
+
+	@include respond-min($bp-narrow) {
+			max-height:25vh;
+	}
+	@include respond-min($bp-mid) {
+			max-height:30vh;
+
+	 }
+	@include respond-min($bp-wide) {
+	 }
+	@include respond-min($bp-huge) {
+	 }
+
+
 
 	.cartelera-imagen {
 		img {
