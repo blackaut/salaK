@@ -16,13 +16,79 @@
 // $bp-wide              : 992;  // Set in px
 // $bp-huge              : 1600; // Set in px
 
+
+.icon-burger {
+
+	padding-left:20px;
+	padding-top:14px;
+
+	padding-right:20px;
+	padding-bottom:14px;
+
+	display: inline-block;
+	cursor: pointer;
+	background-color:transparent;
+// for responsive stuff use as it follows
+
+@include respond-min($bp-narrow) {
+
+	 display: none!important;
+ }
+@include respond-min($bp-mid) {
+	 
+	  
+ }
+@include respond-min($bp-wide) {
+ }
+@include respond-min($bp-huge) {
+ }
+
+
+}
+
+.bar1, .bar2, .bar3, .bar4 {
+	width: 32px;
+	height: 4px;
+	background-color: white;
+	margin: 5px 0;
+	transition: 0.4s;
+	transform:translateY(0px);
+}
+
+/* Rotate first bar */
+.bar1 {
+	&.cross {
+		transform: translateY(0px) rotate(-45deg) translate(-6px, 6px) ;
+	}
+}
+/* Fade out the second bar */
+.bar2, .bar4 {
+	&.cross{
+	opacity: 0;
+	}
+}
+
+/* Rotate last bar */
+.bar3 {
+	&.cross {
+	transform:  translateY(0px) rotate(45deg) translate(-6px, -6px) ;
+	}
+}
+
+
+
+
 // salaK 
 .salaK-block {
 	transition: .5s all;
-	margin-right: 10vw;
 	overflow:hidden;
 	cursor:pointer;
 	background:rgba(255,255,255,0);
+
+	margin-right: 0px;
+	@include respond-min($bp-mid) {
+		margin-right: 10vw;
+	}
 }
 
 .salaK-descripcion {
@@ -80,10 +146,13 @@
 
 .cuaderno-k-block {
 	transition: .5s all;
-	margin-right: 10vw;
 	overflow:hidden;
 	cursor:pointer;
 	background:rgba(255,255,255,0);
+	margin-right: 0px;
+	@include respond-min($bp-mid) {
+		margin-right: 10vw;
+	}
 }
 
 
@@ -115,10 +184,13 @@ p {
 
 .cartelera-block {
 	transition: .5s all;
-	margin-right: 10vw;
 	overflow:hidden;
 	cursor:pointer;
 	background:rgba(255,255,255,0);
+	margin-right: 8px;
+	@include respond-min($bp-mid) {
+		margin-right: 10vw;
+	}
 }
 
 .cartelera-imagen-container {
@@ -128,6 +200,7 @@ p {
 	border-bottom:3px solid white;
 	border-top:3px solid white;
 	overflow:hidden;
+
 	.cartelera-imagen {
 		img {
 				width: 100%;
@@ -257,10 +330,13 @@ picture  {
 	}
 }
 .top-title-vertical {
-	margin-right:10vw;
 	display:flex;
 	justify-content:flex-end;
 	flex-direction:column;
+	margin-right: 0px;
+	@include respond-min($bp-mid) {
+		margin-right: 10vw;
+	}
 }
 
 .social-block {
@@ -289,14 +365,38 @@ picture  {
 .dj_webkit {
 	display:none;
 }
+.fundacion-kine-container {
+	height:100vh;
+	display:flex;
+	width:100%;
+}
 
 .fundacion-kine-block {
 	border: 3px solid white;
-	margin-right: 10vw;
-	margin-left: 5vw;
 	padding:5vw;
 	align-self:center;
-	transform: translateY(50%);
+	align-items:center;
+	margin-right: 10px;
+	margin-left: 10px;
+	margin-top: 70px;
+
+	@include respond-min($bp-narrow) {
+		margin-top: 0;
+		margin-left: 5vw;
+
+	 }
+	@include respond-min($bp-mid) {
+		margin-right: 10vw;
+
+	}
+	@include respond-min($bp-wide) {
+	 }
+	@include respond-min($bp-huge) {
+	 }
+
+
+	@include respond-min($bp-mid) {
+	}
 	h2 {
 		font-size:1.6rem;
 	}
@@ -304,8 +404,14 @@ picture  {
 // contacto 
 
 .contacto-block {
-	margin-right: 10vw;
+	margin-right: 0;
 	margin-left: 5vw;
+
+	@include respond-min($bp-narrow) {
+		margin-top: 0;
+		margin-right: 10vw;
+
+	 }
 }
 
 //cartelera 
@@ -455,12 +561,33 @@ iframe {
 
 
 body, html {
+
 	margin: 0;
-	// overflow: hidden;
+	overflow-x: hidden;
 	transition: opacity 400ms;
 	width:100%;
 	background-color:#000;
-	font-size:14px;
+	font-size:12px;
+
+	@include respond-min($bp-narrow) {
+		font-size:12px;
+
+	}
+	@include respond-min($bp-mid) {
+
+		font-size:13px;
+	}
+
+	@include respond-min($bp-wide) {
+		font-size:20px;
+
+	}
+
+	@include respond-min($bp-huge) {
+		font-size:40px;
+
+	 }
+
 
 }
 
@@ -473,24 +600,56 @@ body, html {
 .central-container {
 
 	height: 100%;
-	width:75vw;
-	margin-left:25vw;
+	width:100vw;
+	margin-left:0;
 	// padding: 10px;
 	z-index:2;
+	transition: 0.5s ease-in-out;
 
 
+	&.active {
+		margin-left:50vw;
+	}
+
+	@include respond-min($bp-narrow) {
+
+		width:75vw;
+		margin-left:25vw;
+	}
+	@include respond-min($bp-mid) {
+
+	}
 }
 
 .left-container {
 	height: 100%;
-	width:25vw;
 	// background:#666;
 	position:fixed;
 	display: flex;
 	flex-direction: column;
-	z-index:2;
+	z-index:50!important;
 	border-right: 3px solid white;
 	justify-content:flex-end;
+	width:50vw;
+	transform:translateX(-50vw);
+	transition: 0.5s ease-in-out;
+	padding-top:100px;
+
+	&.active {
+		border-right: 3px solid white;
+		transform:translateX(0);
+
+	}
+
+	@include respond-min($bp-narrow) {
+		border-right: 3px solid white;
+		transform:translateX(0);
+		width:25vw;
+		padding-top:0;
+
+
+	}
+
 }
 
 // .right-container {
@@ -538,7 +697,14 @@ body, html {
 }
 
 .header-logo {
+
 	width: 100%;
+
+	display: none;
+
+	@include respond-min($bp-narrow) {
+		display:block;
+	}
 }
 
 
@@ -566,13 +732,45 @@ body, html {
 
 }
 
+.mobile-header {
+	width:100%;
+	position:fixed;
+	height:70px;
+	border-bottom: 3px solid white;
+	z-index:200;
+	display:block;
+
+	@include respond-min($bp-narrow) {
+		display:none;
+	}
+}
+
+
 .site-menu {
 
 	flex-grow:2;
 	width:70%;
 	text-align:left;
 	align-self: flex-end;
+	z-index:200;
 }
+
+
+.sala-K-title-mobile {
+	width:auto;
+	padding-right:20px;
+	text-align:right;
+	font-size:2rem;
+	text-transform:uppercase;
+	margin:0!important;
+	letter-spacing:0.2em;
+	float:right;
+	padding-top:20px;
+	user-select:none;
+	cursor:pointer;
+
+}
+
 
 .subtitle-salak {
 	// flex-grow:2;
@@ -627,17 +825,31 @@ address {
 }
 
 .telephone {
-	text-align:center;
+	width:80%;
+	text-align:left;
 	line-height:1.8em;
+	float:right;
+
 }
 .telephone::before {
 
-	content:"+";
+	content:"tel: +";
+}
+
+.contact-sub-title {
+	margin-top:60px;
+	width:80%;
+	text-align:left;
+	float:right;
 }
 
 .mailto {
-	text-align:center;
-	margin-bottom:0.8em;
+	float:right;
+	padding-top:5px;
+	width:80%;
+	border-top:2px solid white;
+	text-transform:uppercase;
+	text-align:left;
 	font-size:1.1em;
 
 }

@@ -80,9 +80,9 @@
 		$centralContainer 	:$('.central-container'),
 		$rightContainer		:$('.right-container'),
 		dropdownCartelera	: document.getElementById("dropdown-cartelera"),
-		$bgPicture			:$('.bg-picture')
+		$bgPicture			:$('.bg-picture'),
+		$iconBurger 		:$('.icon-burger'),
 	},
-
 
 	FBZ.control = {
 		// add function here
@@ -147,14 +147,29 @@
 		activateMenu : function () {
 
 			FBZ.view.$btnMenu.on("click",FBZ.control.displayCategory);
+			FBZ.view.$iconBurger.on("click",FBZ.control.onClickBurger);
 
+
+		},
+
+		onClickBurger : function() {
+			console.log("burger clicked");
+			FBZ.view.$iconBurger.find(".burger-part").toggleClass("cross");
+			FBZ.view.$leftContainer.toggleClass("active" );
+			FBZ.view.$centralContainer.toggleClass( "active");
 		},
 
 		displayCategory : function (e) {
 
-
+			// if was send here by url or button pressed. 
 			if(e.currentTarget) {
 				FBZ.model.currentSection = e.currentTarget.hash;
+				// detect if mobile toggle opened close it 
+				if(FBZ.view.$leftContainer.hasClass("active" )) {
+
+					FBZ.control.onClickBurger();
+				} 
+
 			}else {
 				FBZ.model.currentSection = e;
 			}
@@ -560,12 +575,13 @@
     				// key: the name of the object key
 				// console.log(key,index);
 				FBZ.model.centralContainer += 
-
+				"<div class='fundacion-kine-container'>"+
 					"<div class='fundacion-kine-block'>"+
 					"<h2 class='fundacion-kine-titulo'>"+FBZ.model.noBrain.fundacion_Kine.elements[i].Titulo+"</h2>"+
 						"<p class='fundacion-kine-descripcion'>"+FBZ.model.noBrain.fundacion_Kine.elements[i].Descripcion+"</p>"+
 						"<div class='fundacion-kine-logos'></div>"+
-					"</div>";
+					"</div>"+
+				"</div>";
 				}
 
 			FBZ.view.$centralContainer.append(FBZ.model.centralContainer);
@@ -591,7 +607,7 @@
 				"<div id='mc_embed_signup'>"+
 				"<form action='//k-i.us13.list-manage.com/subscribe/post?u=61e392528256ac7a8e5ea3ac3&amp;id=1eb7ae6282' method='post' id='mc-embedded-subscribe-form' name='mc-embedded-subscribe-form' class='validate' target='_blank' novalidate>"+
 				"<div id='mc_embed_signup_scroll'>"+
-				"<h2>Incribete en nuestra lista de mail</h2>"+
+				"<h2>Inscríbete en nuestra lista de mail</h2>"+
 				"<div class='indicates-required'><span class='asterisk'>*</span> indicates required</div>"+
 				"<div class='mc-field-group'>"+
 					"<label for='mce-EMAIL'>Correo Electronico<span class='asterisk'>*</span>"+
@@ -616,15 +632,22 @@
 				"</div>"+
 				"</form>"+
 				"</div>"+
-				"<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>";
-			"</div>"+
-			"<h2>Incribete en nuestra lista de mail</h2>"+
+				"<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>"+
+				"<h2 class='contact-sub-title'>Tambien puedes contactarnos aquí</h2>"+
 				"<div class='mailto'></div>"+
-				"<div class='telephone'></div>";
-
-				// <!--End mc_embed_signup-->
+				"<div class='telephone'></div>"+
+				"</div>";
 
 			FBZ.view.$centralContainer.append(FBZ.model.centralContainer);
+
+			FBZ.view.$telephone	= $('.telephone');
+			FBZ.view.$mailto	= $('.mailto');
+
+			console.log(FBZ.view.$telephone,FBZ.view.$mailto);
+				// <!--End mc_embed_signup-->
+			FBZ.model.currentEmailAddress = "<a href='mailto:"+FBZ.model.noBrain.contacto.elements[0].Mail+"'>"+FBZ.model.noBrain.contacto.elements[0].Mail +"</a>";
+			FBZ.model.currentTelephoneAddress = "<a href='tel:"+FBZ.model.noBrain.contacto.elements[0].Fono+"'>"+FBZ.model.noBrain.contacto.elements[0].Fono +"</a>";
+
 			FBZ.view.$mailto.append(FBZ.model.currentEmailAddress);
 			FBZ.view.$telephone.append(FBZ.model.currentTelephoneAddress);
 
@@ -906,8 +929,7 @@
      									"<div class='icon-location'> <img  src='http://salak.cl/assets/img/location.svg'/></div>"+
        									"<p class='address-text'>"+FBZ.model.noBrain.contacto.elements[0].Direccion+"</p>"+
        									"</a>";
-			FBZ.model.currentEmailAddress = "<a href='mailto:"+FBZ.model.noBrain.contacto.elements[0].Mail+"'>"+FBZ.model.noBrain.contacto.elements[0].Mail +"</a>";
-			FBZ.model.currentTelephoneAddress = "<a href='tel:"+FBZ.model.noBrain.contacto.elements[0].Fono+"'>"+FBZ.model.noBrain.contacto.elements[0].Fono +"</a>";
+			
 			// console.log(FBZ.model.currentAddress);
 
 
