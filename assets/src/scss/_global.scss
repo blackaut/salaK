@@ -115,8 +115,6 @@
 	flex-shrink: 0;
 	margin-right:0;
 	white-space: normal;
-
-	// border-bottom:3px solid white;
 	flex-wrap: nowrap;
 	justify-content:flex-start;
 	width:100%;
@@ -216,11 +214,6 @@ p {
 			max-height:30vh;
 
 	 }
-	@include respond-min($bp-wide) {
-	 }
-	@include respond-min($bp-huge) {
-	 }
-
 
 
 	.cartelera-imagen {
@@ -252,11 +245,7 @@ picture  {
 .info-box {
 	display:flex;
 	flex-direction:row;
-	// border-bottom:3px solid white;
-	// flex-wrap: nowrap;
-	// justify-content:flex-start;
 	width:100%;
-	
 	flex-shrink: 0;
 	margin-right:0;
 	white-space: normal;
@@ -271,7 +260,6 @@ picture  {
 	flex-direction:column;
 	justify-content:center;
 	padding:20px;
-	// line-height:0.9rem;
 	margin-bottom:0;
 }
 
@@ -304,19 +292,14 @@ picture  {
 
 	overflow: auto;
 	padding:20px;
-	// flex-grow:2;
-	// // text-align:center;
-	// // height:auto;
 	display:flex;
 	flex-direction:row;
-	// justify-content:flex-end;
 	align-self: center;
 }
 
 .sinopsis-info-box {
 
 	width: 100%;
-	// text-align:center;
 	height: 0 ;
 	opacity:0;
 	transition: 1s all ease-in-out;
@@ -377,7 +360,6 @@ picture  {
 	width:70%;
 	display:flex;
 	flex-direction: row;
-	// padding:15px;
 	justify-content:flex-start;
 	flex-grow:1;
 	align-self: flex-end;
@@ -388,11 +370,8 @@ picture  {
 	padding-right: 10px;
 	padding-bottom:5px;
 	text-align: left;
-	// margin: auto;  /* Magic! */
 	img {
 		width: 32px;
-		// margin: 0 auto;
-
 	}
 }
 
@@ -477,7 +456,6 @@ $dot-size: 10px;
 	margin-left: $dot-size;
 	width: $dot-size;
 	height: $dot-size;
-	//float:auto;
 	display: inline-block;
 	cursor:pointer;
 	position:relative;
@@ -501,7 +479,6 @@ $dot-size: 10px;
 	z-index:51;
 	height: $dot-size;
 	transition: all 800ms cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.2s;
-	// opacity:0;
 
 	&.active {
 		width: 100%;
@@ -554,8 +531,6 @@ iframe {
 .dropdown {
     position: relative;
     display: inline-block;
-    // text-align: center;
-    // width: 100%;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -631,7 +606,6 @@ body, html {
 	height: 100%;
 	width:100vw;
 	margin-left:0;
-	// padding: 10px;
 	z-index:2;
 	transition: 0.5s ease-in-out;
 
@@ -652,7 +626,6 @@ body, html {
 
 .left-container {
 	height: 100%;
-	// background:#666;
 	position:fixed;
 	display: flex;
 	flex-direction: column;
@@ -681,14 +654,6 @@ body, html {
 
 }
 
-// .right-container {
-// 	height: 100vh;
-// 	width:20vw;
-// 	// background:#333;
-// 	// position:fixed;
-// 	padding: 10px;
-// 	z-index:2;
-// }
 
 .bg-picture {
 	position:fixed;
@@ -721,10 +686,7 @@ body, html {
 	}
 	@include respond-min($bp-wide) {
 		height:40vh;
-	 }
-	@include respond-min($bp-huge) {
-	 }
-
+	}
 
 }
 
@@ -735,8 +697,7 @@ body, html {
 	visibility:hidden;
 	opacity:0;
 	transition:1s all;
-		width:100%;
-
+	width:100%;
 
 	img {
 		width:100%;
@@ -827,7 +788,6 @@ body, html {
 
 
 .subtitle-salak {
-	// flex-grow:2;
 	align-self: flex-end;
 	border-top: 2px solid white;
 	padding-top:5px!important;
@@ -853,26 +813,19 @@ address {
 
 			width:100%;
 
-		// display:flex;
-		// flex-direction: row;
-		// flex-shrink: 1;
-
 	}
 }
 .address-text {
 	width:70%;
 	float:right;
 	line-height:1.4em;
-	// align-self: flex-end;
 }
 
 .icon-location {
 	fill:white;
 	float:left;
 	width:30%;
-	// margin:0 auto;
 	text-align:center;
-	// flex-shrink: 1;
 	img {
 		width:40px;
 	}
