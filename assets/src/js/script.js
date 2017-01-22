@@ -267,11 +267,20 @@
 		},
 
 		injectTopTitle : function (topTileText) {
+
+
 			FBZ.model.topTitle= "<div class='top-title-holder'>"+
 										"<div class='top-title-vertical'>"+
 										"<h3 class='top-title'>"+topTileText+"</h3>"+
 									"</div>"+
 								"</div>"; 
+
+			if( topTileText  === "" ) {
+				FBZ.model.topTitle= "<div class='top-title-holder no-border'>"+
+										"<div class='top-title-vertical '>"+
+									"</div>"+
+								"</div>"; 
+			}
 
 			FBZ.view.$centralContainer.prepend(FBZ.model.topTitle);
 		},
@@ -302,8 +311,12 @@
 			// console.log("displaySalaK");
 			FBZ.control.createSalaK();
 			FBZ.control.activateCurrentSection("salaK");
-			FBZ.control.injectTopTitle("Sala K");
-			
+
+			if (!FBZ.model.mobileMode) {
+				FBZ.control.injectTopTitle("Sala K");
+			}else {
+				FBZ.control.injectTopTitle("");
+			}
 		},
 
 		displayFundacionKine : function () {
