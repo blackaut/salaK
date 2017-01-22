@@ -47,17 +47,17 @@
 		tabletMode:false,
 		desktopMode:false,
 		// value holders
-		swapToMobileBreakpoint:420,
+		swapToMobileBreakpoint:500,
 		swapToTabletBreakpoint:1024,
 		date : new Date(),
 		dropdown : "",
 		currentSection : "#cartelera",
 		slideshowDescription : [],
 		clock: {},
-		time: 5000,
+		time: 10000,
 		currentImage:0,
 		totalImage:0,
-
+		imagesInDOM:0,
 
 	};
 
@@ -82,6 +82,7 @@
 		dropdownCartelera	: document.getElementById("dropdown-cartelera"),
 		$bgPicture			:$('.bg-picture'),
 		$iconBurger 		:$('.icon-burger'),
+		$images 			:$('images'),
 	},
 
 	FBZ.control = {
@@ -91,12 +92,69 @@
 			FBZ.control.populateBackground();
 			FBZ.control.getTime();
 			FBZ.control.populateLeftContainer();
-			FBZ.control.populateCentralContainer();
-			// FBZ.control.populateRightContainer();
+			FBZ.control.gotoCorrectURL();
+			// FBZ.control.masterLoader();
 
+		},
+
+
+		masterLoader : function (container) {
+
+			FBZ.view.images = $(container).find("img");
+			var source = $(container).find("source");
+
+			source.each(function( index,element ) {
+
+				element.srcsetSave = element.srcset;
+				element.srcset = "#";
+				if(!element.complete) {
+
+					$(element).hide();
+				}
+
+			});
+
+			FBZ.view.images.each(function( index,element ) {
+				element.srcSave = element.src;
+				element.src = "#";
+
+			});
+
+			// images.attr("srcset","src-data");
+			
+
+			FBZ.control.recursiveLoader();
+
+		},
+
+		recursiveLoader : function () {
+
+			// console.log("recursiveLoader");
+			FBZ.view.images[FBZ.model.imagesInDOM].addEventListener('load', FBZ.control.loaded)
+			FBZ.view.images[FBZ.model.imagesInDOM].src = FBZ.view.images[FBZ.model.imagesInDOM].srcSave;
+
+			$(FBZ.view.images[FBZ.model.imagesInDOM]).show();
+
+			$(FBZ.view.images[FBZ.model.imagesInDOM]).parent().find("source").each(function( index,element ) {
+
+				element.srcset = element.srcsetSave;
+
+			});
 
 
 		},
+		loaded : function () {
+
+			FBZ.view.images[FBZ.model.imagesInDOM].removeEventListener('load', FBZ.control.loaded)
+			// console.log("loaded",FBZ.model.imagesInDOM,FBZ.view.images.length );
+			if (FBZ.model.imagesInDOM < FBZ.view.images.length-1) {
+				FBZ.model.imagesInDOM ++;
+				FBZ.control.recursiveLoader();
+			}
+
+		},
+
+
 
 			gotoCorrectURL: function () {
 
@@ -156,7 +214,7 @@
 		},
 
 		onClickBurger : function() {
-			console.log("burger clicked");
+			// console.log("burger clicked");
 			FBZ.view.$iconBurger.find(".burger-part").toggleClass("cross");
 			FBZ.view.$leftContainer.toggleClass("active" );
 			FBZ.view.$centralContainer.toggleClass( "active");
@@ -235,8 +293,9 @@
 			FBZ.control.createCuadernoK();
 			FBZ.control.activateCurrentSection("cuadernoK");
 			FBZ.control.injectTopTitle("Cuaderno K");
-
+			// FBZ.control.masterLoader();
 		},
+
 
 		displaySalaK : function () {
 
@@ -244,7 +303,7 @@
 			FBZ.control.createSalaK();
 			FBZ.control.activateCurrentSection("salaK");
 			FBZ.control.injectTopTitle("Sala K");
-
+			
 		},
 
 		displayFundacionKine : function () {
@@ -252,7 +311,7 @@
 			// console.log("displayFundacionKine");
 			FBZ.control.createFundacionKine();
 			FBZ.control.activateCurrentSection("fundacionKine");
-			//FBZ.control.injectTopTitle("Fundacion Kine");
+
 
 		},
 
@@ -281,13 +340,6 @@
 
 			date = new Date(dateParts[2], parseInt(dateParts[1], 10) - 1, dateParts[0], timeParts[0], timeParts[1]);
 
-			// console.log(date.getTime()); //1379426880000
-			// console.log(date); //Tue Sep 17 2013 10:08:00 GMT-0400
-			// console.log(FBZ.model.date.now());
-
-
-			// console.log(isDateInfuture);
-
 			return date;
 		}, 
 
@@ -303,44 +355,22 @@
 			date = new Date(dateParts[2], parseInt(dateParts[1], 10) - 1, dateParts[0], timeParts[0], timeParts[1]);
 			currentDate = FBZ.model.date.getTime();
 
-			// console.log(date.getTime()); //1379426880000
-			// console.log(date); //Tue Sep 17 2013 10:08:00 GMT-0400
-			// console.log(FBZ.model.date.now());
-
 			if(date.getTime() < currentDate ) {
 				isDateInfuture = true;
 			}else {
 				isDateInfuture = false;
 			}
 
-			// console.log(isDateInfuture);
-
 			return isDateInfuture;
 		}, 
 
 		createCartelera: function () {
 
-			FBZ.model.centralContainer = ""; 
+			FBZ.model.centralContainer = "";
 
-			// FBZ.model.dropdown = 
-			// "<div class='dropdown-container'>"+
-			// 	"<div class='dropdown'>"+
-			// 					"<button onclick='FBZ.control.activateCarteleraDropdown()' class='dropbtn'>"+FBZ.control.getMonthString(FBZ.model.date.getMonth())+"</button>"+
-			// 					"<div id='dropdown-cartelera' class='dropdown-content'>"+
-			// 						"<a href='"+FBZ.control.displayMovies(FBZ.model.date.getMonth()+1)+"'>"+FBZ.control.getMonthString(FBZ.model.date.getMonth()+1)+"</a>"+
-			// 						"<a href='"+FBZ.control.displayMovies(FBZ.model.date.getMonth()+2)+"'>"+FBZ.control.getMonthString(FBZ.model.date.getMonth()+2)+"</a>"+
-			// 						"<a href='"+FBZ.control.displayMovies(FBZ.model.date.getMonth()+3)+"'>"+FBZ.control.getMonthString(FBZ.model.date.getMonth()+3)+"</a>"+
-			// 					"</div>"+
-			// 				"</div>"+
-			// 			"</div>";
-
-			// FBZ.view.$centralContainer.append(FBZ.model.dropdown);
-			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
 			for ( var i = 0 ; i < FBZ.model.noBrain.cartelera.elements.length ; i ++ ) { 
-//				
-				// console.log(FBZ.model.noBrain.cartelera.elements[i]);
 				
-    				// key: the name of the object key
+    			// key: the name of the object key
 				// console.log(key,index);
 				if(FBZ.model.noBrain.cartelera.elements[i].Privacidad != "PRIVADO" && FBZ.control.compareDate(FBZ.model.noBrain.cartelera.elements[i].Fecha, FBZ.model.noBrain.cartelera.elements[i].Hora)) {  
 	
@@ -394,11 +424,7 @@
 
 			FBZ.model.centralContainer = ""; 
 
-			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
 			for ( var i = 0 ; i < FBZ.model.noBrain.cuadernoK.elements.length ; i ++ ) { 
-//				
-				// console.log(FBZ.model.noBrain.cartelera.elements[i]);
-					// key: the name of the object key
 				// console.log(key,index);
 				if(FBZ.model.noBrain.cuadernoK.elements[i].Privacidad != "PRIVADO") {  
 
@@ -438,12 +464,8 @@
 		createSalaK: function () {
 
 			FBZ.model.centralContainer = ""; 
-			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
     		for ( var i = 0 ; i < FBZ.model.noBrain.salaK.elements.length ; i ++ ) { 
-//				
-				// console.log(FBZ.model.noBrain.cartelera.elements[i]);
 				
-    				// key: the name of the object key
 				// console.log(key,index);
 				FBZ.model.centralContainer += 
 
@@ -522,7 +544,7 @@
 		createSliderControl : function () {
 			//FBZ.slider.currentImage = 0;
 			FBZ.model.totalImage  = FBZ.view.sliderControl.children().length-1;
-			console.log("	FBZ.slider.totalImage :",	FBZ.model.totalImage );
+			// console.log("	FBZ.slider.totalImage :",	FBZ.model.totalImage );
 
 			$(".slider-dot").on("click",FBZ.control.onDotClick);
 			FBZ.control.changeImageToIndex(FBZ.model.currentImage);
@@ -570,12 +592,8 @@
 		createFundacionKine: function () {
 
 			FBZ.model.centralContainer = ""; 
-			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
-    		for ( var i = 0 ; i < FBZ.model.noBrain.fundacion_Kine.elements.length ; i ++ ) { 
-//				
-				// console.log(FBZ.model.noBrain.cartelera.elements[i]);
+    		for ( var i = 0 ; i < FBZ.model.noBrain.fundacion_Kine.elements.length ; i ++ ) { 			
 				
-    				// key: the name of the object key
 				// console.log(key,index);
 				FBZ.model.centralContainer += 
 				"<div class='fundacion-kine-container'>"+
@@ -595,58 +613,55 @@
 		createContacto: function () {
 
 			FBZ.model.centralContainer = ""; 
-			// Object.keys(FBZ.model.noBrain.cartelera.elements[0]).forEach(function(key,index) {
-//				
-				// console.log(FBZ.model.noBrain.cartelera.elements[i]);
-				
-    				// key: the name of the object key
-				// console.log(key,index);
-			FBZ.model.centralContainer += 
+			FBZ.model.centralContainer +=
+
 			"<div class='contacto-block'>"+
-				"<link href='//cdn-images.mailchimp.com/embedcode/classic-10_7.css' rel='stylesheet' type='text/css'>"+
-				"<style type='text/css'>"+
-				"#mc_embed_signup { background:transparent; clear:left; }"+
-				"</style>"+
+				// "<link href='//cdn-images.mailchimp.com/embedcode/classic-10_7.css' rel='stylesheet' type='text/css'>"+
 				"<div id='mc_embed_signup'>"+
-				"<form action='//k-i.us13.list-manage.com/subscribe/post?u=61e392528256ac7a8e5ea3ac3&amp;id=1eb7ae6282' method='post' id='mc-embedded-subscribe-form' name='mc-embedded-subscribe-form' class='validate' target='_blank' novalidate>"+
-				"<div id='mc_embed_signup_scroll'>"+
-				"<h2>Inscríbete en nuestra lista de mail</h2>"+
-				"<div class='indicates-required'><span class='asterisk'>*</span> indicates required</div>"+
-				"<div class='mc-field-group'>"+
-					"<label for='mce-EMAIL'>Correo Electronico<span class='asterisk'>*</span>"+
-				"</label>"+
-					"<input type='email' value='' name='EMAIL' class='required email' id='mce-EMAIL'>"+
+					"<form action='//k-i.us13.list-manage.com/subscribe/post?u=61e392528256ac7a8e5ea3ac3&amp;id=1eb7ae6282' method='post' id='mc-embedded-subscribe-form' name='mc-embedded-subscribe-form' class='validate' target='_blank' novalidate>"+
+						"<div id='mc_embed_signup_scroll'>"+
+							"<h2>Inscríbete en nuestra lista de mail</h2>"+
+							"<div class='indicates-required'><span class='asterisk'>*</span> campo requerido</div>"+
+							"<div class='mc-field-group'>"+
+								"<label for='mce-EMAIL'>Correo Electronico<span class='asterisk'>*</span>"+
+								"</label>"+
+								"<input type='email' value='' name='EMAIL' class='required email' id='mce-EMAIL'>"+
+							"</div>"+
+							
+							"<div class='mc-field-group'>"+
+								"<label for='mce-FNAME'>Nombre </label>"+
+								"<input type='text' value='' name='FNAME' class='' id='mce-FNAME'>"+
+							"</div>"+
+
+							"<div class='mc-field-group'>"+
+								"<label for='mce-LNAME'>Apellido  <span class='asterisk'>*</span>"+
+								"</label>"+
+								"<input type='text' value='' name='LNAME' class='required' id='mce-LNAME'>"+
+							"</div>"+
+
+							"<div id='mce-responses' class='clear'>"+
+								"<div class='response' id='mce-error-response' style='display:none'></div>"+
+								"<div class='response' id='mce-success-response' style='display:none'></div>"+
+							"</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->"+
+
+							"<div style='position: absolute; left: -5000px;' aria-hidden='true'><input type='text' name='b_61e392528256ac7a8e5ea3ac3_1eb7ae6282' tabindex='-1' value=''></div>"+
+							"<div class='clear'><input type='submit' value='Suscríbete' name='subscribe' id='mc-embedded-subscribe' class='button'></div>"+
+						"</div>"+
+					"</form>"+
 				"</div>"+
-				"<div class='mc-field-group'>"+
-					"<label for='mce-FNAME'>Nombre </label>"+
-					"<input type='text' value=' name='FNAME' class=' id='mce-FNAME'>"+
-				"</div>"+
-				"<div class='mc-field-group'>"+
-					"<label for='mce-LNAME'>Apellido  <span class='asterisk'>*</span>"+
-				"</label>"+
-					"<input type='text' value=' name='LNAME' class='required' id='mce-LNAME'>"+
-				"</div>"+
-					"<div id='mce-responses' class='clear'>"+
-						"<div class='response' id='mce-error-response' style='display:none'></div>"+
-						"<div class='response' id='mce-success-response' style='display:none'></div>"+
-					"</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->"+
-				"<div style='position: absolute; left: -5000px;' aria-hidden='true'><input type='text' name='b_61e392528256ac7a8e5ea3ac3_1eb7ae6282' tabindex='-1' value='></div>"+
-					"<div class='clear'><input type='submit' value='Subscribe' name='subscribe' id='mc-embedded-subscribe' class='button'></div>"+
-				"</div>"+
-				"</form>"+
-				"</div>"+
+
 				"<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>"+
+
 				"<h2 class='contact-sub-title'>Tambien puedes contactarnos aquí</h2>"+
 				"<div class='mailto'></div>"+
-				"<div class='telephone'></div>"+
-				"</div>";
+				"<div class='telephone'></div>";
 
 			FBZ.view.$centralContainer.append(FBZ.model.centralContainer);
 
 			FBZ.view.$telephone	= $('.telephone');
 			FBZ.view.$mailto	= $('.mailto');
 
-			console.log(FBZ.view.$telephone,FBZ.view.$mailto);
+			// console.log(FBZ.view.$telephone,FBZ.view.$mailto);
 				// <!--End mc_embed_signup-->
 			FBZ.model.currentEmailAddress = "<a href='mailto:"+FBZ.model.noBrain.contacto.elements[0].Mail+"'>"+FBZ.model.noBrain.contacto.elements[0].Mail +"</a>";
 			FBZ.model.currentTelephoneAddress = "<a href='tel:"+FBZ.model.noBrain.contacto.elements[0].Fono+"'>"+FBZ.model.noBrain.contacto.elements[0].Fono +"</a>";
@@ -760,7 +775,7 @@
 
 			var section = window.location.href.split("/");
 
-			 console.log("section length :",section.length);
+			 // console.log("section length :",section.length);
 
 			if ( section.length <= 4 ) {
 
@@ -961,13 +976,7 @@
 
 		populateCentralContainer :  function () { 
 
-			FBZ.control.gotoCorrectURL();
-			// FBZ.control.displayCartelera();
-			// FBZ.control.createCartelera();
-		
-			// FBZ.control.activateCarteleraDropdown();
-
-
+			
 		},
 
 		populateRightContainer :  function () { 
@@ -1003,39 +1012,6 @@
 			FBZ.view.$rightContainer.append(FBZ.model.rightContainer);
 
 		},
-
-
-		//	console.log("populatecartelera");
-
-// 			FBZ.model.totalAmountOfProjects  = FBZ.model.noBrain.Projects.elements.length;
-// 			 /// ,this is an injection of content coming from the no brain 
-// //			console.log(FBZ.model.noBrain.Projects.elements.length);
-// 			for ( var i = 0 ; i < FBZ.model.noBrain.Projects.elements.length ; i ++ ) { 
-// //				console.log(FBZ.model.noBrain.Projects.elements[i]);
-// 				if(FBZ.model.noBrain.Projects.elements[i].Privacy != "PRIVATE") {  
-
-// 					var link = FBZ.model.noBrain.Projects.elements[i].URL;
-// 					if(link != "") {  
-// 						link = "<a class='project-link is-hidden' href='"+link+"' target='_blank'><img class='web-icon-link' src='../assets/img/web_icon.svg' alt='web_icon'/>"+FBZ.model.noBrain.Projects.elements[i].URL+"</a>";
-// 					}
-// 				FBZ.view.$projectsCardHolder.append(
-
-// 						"<div class='project-card'>"+ 
-
-// 											"<h3  class='project-name'><span class='close-dash is-hidden'>–</span><span data-translatable>"+FBZ.model.noBrain.Projects.elements[i].Name+"</span></h3>"+
-// 											"<div class='project-image is-hidden'>"+
-// 											FBZ.model.noBrain.Projects.elements[i].Image+"</div>"+
-// 											// "<div class='project-text-wrapper is-hidden'>"+
-// 										"<h3 data-translatable class='project-client is-hidden'>"+FBZ.model.noBrain.Projects.elements[i].Client +"</h3>"+
-// 											"<p class='project-date is-hidden'>"+ FBZ.model.noBrain.Projects.elements[i].StartDate+"</p>"+
-// 											"<p class='project-description is-hidden' data-translatable>"+FBZ.model.noBrain.Projects.elements[i].Description+"</p>"+
-// 											link+
-// 											// "</div><!--end project text-wrapper-->"+
-// 											"<div class='project-keywords is-hidden'>"+FBZ.model.noBrain.Projects.elements[i].Keywords+"<span></span></div>"+
-// 										"</div><!--end project card-->");
-// 				}
-// 			}
-// 			// to activate accordeon.
 
 	};
 
