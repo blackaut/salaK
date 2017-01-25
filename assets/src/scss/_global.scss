@@ -17,6 +17,14 @@
 // $bp-huge              : 1600; // Set in px
 
 
+// bug fix iphone 5 
+
+body {
+   -webkit-text-size-adjust: none;
+}
+
+
+
 .icon-burger {
 
 	padding-left:20px;
