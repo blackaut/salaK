@@ -109,8 +109,9 @@ body {
 	padding-top:10px;
 	flex-direction: row;
 	display:flex;
-	justify-content:space-between;
+	justify-content:center;
 	align-items:center;
+	flex-wrap: wrap;
 
 }
 
@@ -524,9 +525,36 @@ iframe {
 
 
 .logo-small {
-	width:100px;
-	padding:10px;
+	width:90px;
+	margin:10px;
 	height:auto;
+
+
+	@include respond-min($bp-narrow) {
+			width:90px;
+
+	 }
+	@include respond-min($bp-mid) {
+			width:100px;
+			margin:20px;
+
+
+	 }
+	@include respond-min($bp-wide) {
+			width:110px;
+			margin:30px;
+
+
+	 }
+	@include respond-min($bp-huge) {
+			width:120px;
+			margin:40px;
+
+
+	 }
+
+
+
 }
 
 
@@ -692,21 +720,10 @@ body, html {
 .salaK-slideshow {
 	// margin-top:20%;
 	overflow:hidden;
-	height:20vh;
 	width:100%;
 	position:relative;
-
-	@include respond-min($bp-narrow) {
-	}
-	@include respond-min($bp-mid) {
-
-		height:30vh;
-
-	}
-	@include respond-min($bp-wide) {
-		height:40vh;
-	}
-
+	height:0;
+	transition:all 1s 3s;
 }
 
 .slideshow-imagen {

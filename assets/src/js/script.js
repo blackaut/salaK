@@ -542,6 +542,11 @@
 
 			FBZ.view.salaKSlideshow.append(FBZ.model.slideshow);
 
+			FBZ.control.getImageSize($('.slideshow-imagen')[0], function(height) {
+					FBZ.view.salaKSlideshow.height(height);
+					console.log("callback : ",height);
+			});
+
 			FBZ.view.sliderControl.append(FBZ.model.slideshowControl);
 
 			FBZ.control.createSliderControl();
@@ -557,6 +562,20 @@
 			}
 			FBZ.view.salaKLogos.append(FBZ.model.logos);
 		},
+
+	getImageSize : function (img, callback) {
+		
+		console.log("var and width");
+		var $img = $(img).find("img");
+
+		var wait = setInterval(function() {
+		var h = $img[0].height;
+        if (h) {
+            clearInterval(wait);
+            callback.apply(this, [h]);
+        }
+    }, 100);
+},
 
 /// slider stuff 
 
