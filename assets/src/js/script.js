@@ -99,7 +99,6 @@
 		},
 
 		checkIfCuadernoK : function () {
-			console.log("checkIfCuadernoK", FBZ.model.ifCuandernoKHasNoContent);
 
 			for ( var i = 0 ; i < FBZ.model.noBrain.cuadernoK.elements.length ; i ++ ) { 
 
@@ -389,12 +388,12 @@
 			date = new Date(dateParts[2], parseInt(dateParts[1], 10) - 1, dateParts[0], timeParts[0], timeParts[1]);
 			currentDate = FBZ.model.date.getTime();
 
-			if(date.getTime() < currentDate ) {
+			if(date.getTime() > currentDate ) {
 				isDateInfuture = true;
 			}else {
 				isDateInfuture = false;
 			}
-
+			console.log(isDateInfuture)
 			return isDateInfuture;
 		}, 
 
@@ -498,9 +497,8 @@
 		createSalaK: function () {
 
 			FBZ.model.centralContainer = ""; 
-    		for ( var i = 0 ; i < FBZ.model.noBrain.salaK.elements.length ; i ++ ) { 
-				
-				// console.log(key,index);
+			for ( var i = 0 ; i < FBZ.model.noBrain.salaK.elements.length ; i ++ ) { 
+
 				FBZ.model.centralContainer += 
 
 					"<div class='salaK-block'>"+
@@ -558,20 +556,17 @@
 									"</a>";
 			}
 			FBZ.view.salaKLogos.append(FBZ.model.logos);
-
 		},
-
 
 /// slider stuff 
 
 		createInterval : function () { 
 			 FBZ.model.clock = setInterval( function() 
 		{
-	//			console.log("interval");
+				console.log("interval");
 				FBZ.control.playSlider();
-       		}, FBZ.model.time);
-		}, 
-
+			}, FBZ.model.time);
+		},
 		deleteInterval : function () { 
 			clearInterval(FBZ.model.clock);
 		},
