@@ -13,7 +13,6 @@
 
 		});
 
-
 	$(function() {
 
 		// initial functions 
@@ -58,6 +57,7 @@
 		currentImage:0,
 		totalImage:0,
 		imagesInDOM:0,
+		ifCuandernoKHasNoContent: false,
 
 	};
 
@@ -94,9 +94,30 @@
 			FBZ.control.populateLeftContainer();
 			FBZ.control.gotoCorrectURL();
 			// FBZ.control.masterLoader();
+			FBZ.control.checkIfCuadernoK();
 
 		},
 
+		checkIfCuadernoK : function () {
+			console.log("checkIfCuadernoK", FBZ.model.ifCuandernoKHasNoContent);
+
+			for ( var i = 0 ; i < FBZ.model.noBrain.cuadernoK.elements.length ; i ++ ) { 
+
+				if(FBZ.model.noBrain.cuadernoK.elements[i].Privacidad != "PRIVADO") {  
+
+					FBZ.model.ifCuandernoKHasNoContent = true; 
+
+				}
+			}
+
+			if (!FBZ.model.ifCuandernoKHasNoContent) { 
+				FBZ.control.hideCuadernoK()
+			} 
+		},
+
+		hideCuadernoK : function () {
+			$(".cuadernoK").hide();
+		}, 
 
 		masterLoader : function (container) {
 
