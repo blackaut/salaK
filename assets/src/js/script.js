@@ -22,6 +22,7 @@
 		FBZ.control.defineStage();
 		FBZ.control.resizeContentBlock();
 		FBZ.control.activateMenu();
+		FBZ.fixBugMobileSafari();
 
 	});// END DOC READY
 	
@@ -99,6 +100,17 @@
 
 		},
 
+
+		fixBugMobileSafari : function () {
+			var isIphone = /(iPhone)/i.test(navigator.userAgent);
+			var isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
+
+			if(isIphone && isSafari){
+				//do something
+				
+			}
+
+		},
 		checkIfCuadernoK : function () {
 
 			for ( var i = 0 ; i < FBZ.model.noBrain.cuadernoK.elements.length ; i ++ ) { 
