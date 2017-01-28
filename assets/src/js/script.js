@@ -58,7 +58,7 @@
 		totalImage:0,
 		imagesInDOM:0,
 		ifCuandernoKHasNoContent: false,
-
+		ifCarteleraHasNoContent: false,
 	};
 
 	FBZ.view = {
@@ -89,12 +89,13 @@
 		// add function here
 		init : function () {
 			console.debug('SALA K is running');
+			FBZ.control.checkIfCuadernoK();
+			FBZ.control.checkIfCartelera();
 			FBZ.control.populateBackground();
 			FBZ.control.getTime();
 			FBZ.control.populateLeftContainer();
 			FBZ.control.gotoCorrectURL();
 			// FBZ.control.masterLoader();
-			FBZ.control.checkIfCuadernoK();
 
 		},
 
@@ -116,6 +117,30 @@
 
 		hideCuadernoK : function () {
 			$(".cuadernoK").hide();
+		}, 
+
+
+		checkIfCartelera : function () {
+
+			for ( var i = 0 ; i < FBZ.model.noBrain.cartelera.elements.length ; i ++ ) { 
+				
+    			// key: the name of the object key
+				// console.log(key,index);
+				if(FBZ.model.noBrain.cartelera.elements[i].Privacidad != "PRIVADO" && FBZ.control.compareDate(FBZ.model.noBrain.cartelera.elements[i].Fecha, FBZ.model.noBrain.cartelera.elements[i].Hora)) {  
+	
+					FBZ.model.ifCarteleraHasNoContent = true; 
+					console.log("FBZ.model.ifCarteleraHasNoContent :",FBZ.model.ifCarteleraHasNoContent);
+				}
+			}
+
+			if (!FBZ.model.ifCarteleraHasNoContent) { 
+				FBZ.control.hideCartelera();
+			} 
+		},
+
+		hideCartelera : function () {
+			$(".cartelera").hide();
+			FBZ.control.displaySalaK();
 		}, 
 
 		masterLoader : function (container) {
@@ -141,7 +166,6 @@
 			});
 
 			// images.attr("srcset","src-data");
-			
 
 			FBZ.control.recursiveLoader();
 
@@ -161,8 +185,9 @@
 
 			});
 
-
 		},
+
+
 		loaded : function () {
 
 			FBZ.view.images[FBZ.model.imagesInDOM].removeEventListener('load', FBZ.control.loaded)
@@ -173,8 +198,6 @@
 			}
 
 		},
-
-
 
 			gotoCorrectURL: function () {
 
@@ -200,7 +223,6 @@
 				FBZ.control.displayCategory(currentURL);
 
 			} else {
-
 				FBZ.control.displayCategory("#cartelera");
 			}
 		},
@@ -259,8 +281,18 @@
 			FBZ.control.fadeShow(FBZ.view.$centralContainer);
 
 			switch (FBZ.model.currentSection) {
-				case "#cartelera": 
-					FBZ.control.displayCartelera();
+				case "#cartelera":
+					console.log("display passing");
+					if (FBZ.model.ifCarteleraHasNoContent) { 
+						FBZ.control.displayCartelera();
+						console.log("display  Cartelera");
+
+					}else {
+						FBZ.control.displaySalaK();
+
+						console.log("display  slak");
+
+					}
 				break;
 				case "#cuadernoK":
 					FBZ.control.displayCuadernoK();
@@ -1021,11 +1053,6 @@
 
 		},
 
-
-		populateCentralContainer :  function () { 
-
-			
-		},
 
 		populateRightContainer :  function () { 
 
