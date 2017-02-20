@@ -40,7 +40,7 @@
 		noBrain : {},
 		currentLang:"es",
 		months : ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
-		days : ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"],
+		days : ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"],
 		$selectedform : {},
 		// js detection
 		mobileMode:false,
